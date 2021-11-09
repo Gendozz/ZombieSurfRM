@@ -21,7 +21,7 @@ public class ObstacleMatrix
     }
   }
 
-  public ObstacleMatrix(ObstacleGenerator og, int laneCount, int laneCellCount)
+  public ObstacleMatrix(ObstacleGeneratorNotMy og, int laneCount, int laneCellCount)
   {
     if (laneCount <= 0 || laneCellCount <= 0)
       return;

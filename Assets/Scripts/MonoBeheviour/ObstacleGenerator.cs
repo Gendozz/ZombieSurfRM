@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoadFiller : MonoBehaviour
+public class ObstacleGenerator : MonoBehaviour
 {
     private CellFrame currentCellFrame;
 

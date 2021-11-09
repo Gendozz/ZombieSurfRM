@@ -48,7 +48,7 @@ public class RoadGenerator : MonoBehaviour
   private RoadGenerator.RoadType currentRoadType;
   private int currentRoadTypeBlocksLeft;
   private float lastRoadBlockLength;
-  private ObstacleGenerator og;
+  private ObstacleGeneratorNotMy og;
   private BountyGenerator bg;
   private System.Random blockTypeRandom;
   private System.Random crossRoadRandom;
@@ -59,7 +59,7 @@ public class RoadGenerator : MonoBehaviour
 
   private void Start()
   {
-    this.og = this.GetComponent<ObstacleGenerator>();
+    this.og = this.GetComponent<ObstacleGeneratorNotMy>();
     this.bg = this.GetComponent<BountyGenerator>();
     this.roadBlockList = new List<GameObject>();
     this.blockTypeRandom = RandomProvider.GetThreadRandom();

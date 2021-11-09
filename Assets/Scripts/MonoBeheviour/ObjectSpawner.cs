@@ -18,7 +18,7 @@ public class ObjectSpawner : MonoBehaviour
 
     public void StartSpawn()
     {
-        pooler = ObjectPooler.Instance;
+        pooler = ObjectPooler.SharedInstance;
         Init();
     }
 

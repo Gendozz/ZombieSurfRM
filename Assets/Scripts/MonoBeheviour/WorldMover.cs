@@ -19,7 +19,7 @@ public class WorldMover : MonoBehaviour
     // Перед началом движения добавляем все контейнеры пулов в список объектов, которые будем двигать
     public void PrepareToMove()
     {
-        pooler = ObjectPooler.Instance;
+        pooler = ObjectPooler.SharedInstance;
 
         for (int i = 0; i < pooler.pools.Count; i++)
         {

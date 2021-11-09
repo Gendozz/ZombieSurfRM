@@ -31,11 +31,11 @@ public class ObjectPooler : MonoBehaviour
     public UnityEvent poolIsReady;
 
     // А-ля синглтон
-    public static ObjectPooler Instance;
+    public static ObjectPooler SharedInstance;
 
     private void Awake()
     {
-        Instance = this;
+        SharedInstance = this;
     }
 
     // Список пулов

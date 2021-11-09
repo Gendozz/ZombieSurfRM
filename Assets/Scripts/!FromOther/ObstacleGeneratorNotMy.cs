@@ -7,7 +7,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleGenerator : MonoBehaviour
+public class ObstacleGeneratorNotMy : MonoBehaviour
 {
   [SerializeField]
   private List<ObstacleNotMy> obstaclePrefabList;
