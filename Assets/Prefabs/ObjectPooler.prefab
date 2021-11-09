@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8531218311289422654
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8531218311289422652}
+  - component: {fileID: 8531218311289422655}
+  m_Layer: 0
+  m_Name: ObjectPooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8531218311289422652
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8531218311289422654}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8531218311289422655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8531218311289422654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ece3ad92ba8315468eb79ace4f09bff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolIsReady:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 973f1c4d916b2c94bb142f16a78f6b12, type: 2}
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  pools:
+  - poolTag: {fileID: 11400000, guid: 843c6422bda4e37409aacfe2c3449003, type: 2}
+    prefab: {fileID: 7950335144479799850, guid: acf3831ae3951754f9285b6378ee4abe,
+      type: 3}
+    size: 30
+    container: {fileID: 0}
+  - poolTag: {fileID: 11400000, guid: dccf7f11c0d8ce44da018a0403bd34a7, type: 2}
+    prefab: {fileID: 6882760962250746494, guid: 7bb85e9348a187b428e6f81e62aa12ab,
+      type: 3}
+    size: 30
+    container: {fileID: 0}
+  - poolTag: {fileID: 11400000, guid: da7ea8c33bcce9a42a8d050f59d93d54, type: 2}
+    prefab: {fileID: 6882760962250746494, guid: 79c75c2f6efa9bd4bbb7fdc0b09d2be6,
+      type: 3}
+    size: 30
+    container: {fileID: 0}
