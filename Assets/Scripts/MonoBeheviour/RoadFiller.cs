@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class RoadFiller : MonoBehaviour
 {
-    private TileMap currentMap;
+    private CellFrame currentCellFrame;
 
     public GameObject[] obstacleTypes;
 
-    private int mapWidth = 3;
-    private int mapLenght = 50;
+    private int cellFrameWidth = 3;
+    private int cellFrameLenght = 50;
 
-    private float tileWidth = 2f;
-    private float tileLenght = 2f;
+    private float cellWidth = 2f;
+    private float cellLenght = 2f;
 
-    private int currentMapStartZ = 0;
+    private int currentCellFrameStartZ = 0;
 
     [SerializeField]
     private FloatReference difficulty;
@@ -26,11 +26,11 @@ public class RoadFiller : MonoBehaviour
     private void Start()
     {        
         // Инициация карты 
-        currentMap = new TileMap(mapWidth, mapLenght);
+        currentCellFrame = new CellFrame(cellFrameWidth, cellFrameLenght);
 
-        print($"mapWidth => {mapWidth} | mapLenght => {mapLenght}");
+        print($"cellFrameWidth => {cellFrameWidth} | cellFrameLenght => {cellFrameLenght}");
 
-        FillTileMapWithTiles();
+        FillCellFrameWithCells();
 
     }
 
@@ -40,7 +40,7 @@ public class RoadFiller : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            RefillMap();
+            RefillCellFrame();
         }
     }
 
@@ -48,29 +48,29 @@ public class RoadFiller : MonoBehaviour
     /// <summary>
     /// Заполняет первую карту препятствий рандомными препятствиями
     /// </summary>
-    public void FillTileMapWithTiles()           
+    public void FillCellFrameWithCells()           
     {
-        // Заполняем TileMap тайлами, устанавливая их координаты
-        for (int width_X = 0; width_X < mapWidth; width_X++)
+        // Заполняем CellFrame ячейками, устанавливая их координаты
+        for (int width_X = 0; width_X < cellFrameWidth; width_X++)
         {
-            float xPos = width_X * tileWidth + tileWidth / 2;
+            float xPos = width_X * cellWidth + cellWidth / 2;
 
-            for (int lenght_Z = 0; lenght_Z < mapLenght; lenght_Z++)
+            for (int lenght_Z = 0; lenght_Z < cellFrameLenght; lenght_Z++)
             {
-                float zPos = currentMapStartZ + (lenght_Z * tileLenght + tileLenght / 2);
+                float zPos = currentCellFrameStartZ + (lenght_Z * cellLenght + cellLenght / 2);
 
-                Tile currentTile = new Tile(xPos, zPos);
+                Cell currentTile = new Cell(xPos, zPos);
 
-                if (currentMapStartZ == 0 || (currentMapStartZ != 0 && lenght_Z != 0))  // не должно срабатывать при регенерации tilemap, чтобы не закрывать проход.
+                if (currentCellFrameStartZ == 0 || (currentCellFrameStartZ != 0 && lenght_Z != 0))  // не должно срабатывать при регенерации CellFrame, чтобы не закрывать проход.
                 {
                     currentTile.isEmpty = Random.value > difficulty.GetValue();     // Прорежаем в зависимости от сложности 
                 }
-                currentMap.tiles[width_X, lenght_Z] = currentTile;
+                currentCellFrame.cells[width_X, lenght_Z] = currentTile;
             }
         }
 
         MakeFreePath();
-        FillMap();
+        FillCellFrame();
     }
 
     /// <summary>
@@ -80,14 +80,14 @@ public class RoadFiller : MonoBehaviour
     private void MakeFreePath()
     {
         // Выбираем рандомный тайл в первом ряду..
-        int currentX = Random.Range(0, mapWidth);
+        int currentX = Random.Range(0, cellFrameWidth);
         int currentZ = 0;
 
         do
         {
             // .. делаем его пустым,
             // а по ходу цикла каждый впредеди идущий тайл, чтобы гарантировать всегда открытый путь
-            currentMap.tiles[currentX, currentZ].isEmpty = true;
+            currentCellFrame.cells[currentX, currentZ].isEmpty = true;
 
             // Выбираем направление для следующего "вырезания тайла"
             int sideCutDirection;
@@ -98,7 +98,7 @@ public class RoadFiller : MonoBehaviour
                 sideCutDirection = 1;
             }
             // Если самый правый режем влево
-            else if(currentX == mapWidth - 1)
+            else if(currentX == cellFrameWidth - 1)
             {
                 sideCutDirection = -1;
             }
@@ -118,7 +118,7 @@ public class RoadFiller : MonoBehaviour
                 currentZ++;
             }
         }
-        while (currentZ < mapLenght);
+        while (currentZ < cellFrameLenght);
     }
 
 
@@ -126,20 +126,20 @@ public class RoadFiller : MonoBehaviour
     /// Заполняет НЕпустые тайлы префабами
     /// Тест для отдельного использования
     /// </summary>
-    private void FillMap()
+    private void FillCellFrame()
     {
-        Tile currentTile;
+        Cell currentCell;
 
-        for (int width = 0; width < mapWidth; width++)
+        for (int width = 0; width < cellFrameWidth; width++)
         {
-            for (int lenght = 0; lenght < mapLenght; lenght++)
+            for (int lenght = 0; lenght < cellFrameLenght; lenght++)
             {
-                currentTile = currentMap.tiles[width, lenght];
-                if (!currentTile.isEmpty)
+                currentCell = currentCellFrame.cells[width, lenght];
+                if (!currentCell.isEmpty)
                 {
                     int randomObstacleIndex = Random.Range(0, obstacleTypes.Length);
 
-                    Vector3 testCenterPosition = currentTile.centerPosition;
+                    Vector3 testCenterPosition = currentCell.centerPosition;
                     testCenterPosition.y += 2;
                     Instantiate(obstacleTypes[randomObstacleIndex], testCenterPosition, Quaternion.identity);
                 }
@@ -148,33 +148,33 @@ public class RoadFiller : MonoBehaviour
         }
     }
 
-    public void RefillMap()
+    public void RefillCellFrame()
     {
-        TileMap newMap = new TileMap(mapWidth, mapLenght);
+        CellFrame newCellFrame = new CellFrame(cellFrameWidth, cellFrameLenght);
 
-        for (int width_X = 0; width_X < mapWidth; width_X++)
+        for (int width_X = 0; width_X < cellFrameWidth; width_X++)
         {
-            newMap.tiles[width_X, 0] = currentMap.tiles[width_X, mapLenght - 1];
+            newCellFrame.cells[width_X, 0] = currentCellFrame.cells[width_X, cellFrameLenght - 1];
         }        
 
-        currentMap = newMap;
+        currentCellFrame = newCellFrame;
 
-        currentMapStartZ += mapLenght * (int)tileLenght;
+        currentCellFrameStartZ += cellFrameLenght * (int)cellLenght;
 
-        FillTileMapWithTiles();
+        FillCellFrameWithCells();
 
     }
 
     // Для тестов | удалить
-    private void ShowCurrentMapInConsole()
+    private void ShowCurrentCellFrameInConsole()
     {
         string line = "";
-        for (int i = 0; i < mapLenght; i++)
+        for (int i = 0; i < cellFrameLenght; i++)
         {
             line = "";
-            for (int j = 0; j < mapWidth; j++)
+            for (int j = 0; j < cellFrameWidth; j++)
             {
-                line += " " + currentMap.tiles[j, i].isEmpty;
+                line += " " + currentCellFrame.cells[j, i].isEmpty;
             }
 
             print(line);
