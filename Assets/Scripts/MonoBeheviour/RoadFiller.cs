@@ -34,7 +34,9 @@ public class RoadFiller : MonoBehaviour
 
     }
 
-    private void Update()
+
+
+    private void Update()                           // УДАЛИТЬ
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -119,6 +121,11 @@ public class RoadFiller : MonoBehaviour
         while (currentZ < mapLenght);
     }
 
+
+    /// <summary>
+    /// Заполняет НЕпустые тайлы префабами
+    /// Тест для отдельного использования
+    /// </summary>
     private void FillMap()
     {
         Tile currentTile;
@@ -141,22 +148,6 @@ public class RoadFiller : MonoBehaviour
         }
     }
 
-    // Для тестов
-    private void ShowCurrentMapInConsole()
-    {
-        string line = "";
-        for (int i = 0; i < mapLenght; i++)
-        {
-            line = "";
-            for (int j = 0; j < mapWidth; j++)
-            {
-                line += " " + currentMap.tiles[j, i].isEmpty;
-            }
-
-            print(line);
-        }
-    }
-
     public void RefillMap()
     {
         TileMap newMap = new TileMap(mapWidth, mapLenght);
@@ -173,4 +164,21 @@ public class RoadFiller : MonoBehaviour
         FillTileMapWithTiles();
 
     }
+
+    // Для тестов | удалить
+    private void ShowCurrentMapInConsole()
+    {
+        string line = "";
+        for (int i = 0; i < mapLenght; i++)
+        {
+            line = "";
+            for (int j = 0; j < mapWidth; j++)
+            {
+                line += " " + currentMap.tiles[j, i].isEmpty;
+            }
+
+            print(line);
+        }
+    }
+
 }
