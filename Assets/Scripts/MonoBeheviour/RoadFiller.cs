@@ -14,6 +14,8 @@ public class RoadFiller : MonoBehaviour
     private float tileWidth = 2f;
     private float tileLenght = 2f;
 
+    private int currentMapStartZ = 0;
+
     [SerializeField]
     private FloatReference difficulty;
 
@@ -22,44 +24,56 @@ public class RoadFiller : MonoBehaviour
     float offset = 5f; // to use in future
 
     private void Start()
-    {
+    {        
+        // Инициация карты 
+        currentMap = new TileMap(mapWidth, mapLenght);
+
+        print($"mapWidth => {mapWidth} | mapLenght => {mapLenght}");
+
         FillTileMapWithTiles();
-        MakeFreePath();
-        FillMap();
+
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            RefillMap();
+        }
     }
 
 
     /// <summary>
     /// Заполняет первую карту препятствий рандомными препятствиями
     /// </summary>
-    public void FillTileMapWithTiles()           // переделать в обычный метод
+    public void FillTileMapWithTiles()           
     {
-        // Инициация карты 
-        currentMap = new TileMap(mapWidth, mapLenght);
-
-        print($"mapWidth => {mapWidth} | mapLenght => {mapLenght}");
-
         // Заполняем TileMap тайлами, устанавливая их координаты
         for (int width_X = 0; width_X < mapWidth; width_X++)
-        {            
+        {
             float xPos = width_X * tileWidth + tileWidth / 2;
 
             for (int lenght_Z = 0; lenght_Z < mapLenght; lenght_Z++)
             {
-                float zPos = lenght_Z * tileLenght + tileLenght / 2;
+                float zPos = currentMapStartZ + (lenght_Z * tileLenght + tileLenght / 2);
 
                 Tile currentTile = new Tile(xPos, zPos);
 
-                currentTile.isEmpty = Random.value > difficulty.GetValue();      // Прорежаем в зависимости от сложности 
-
+                if (currentMapStartZ == 0 || (currentMapStartZ != 0 && lenght_Z != 0))  // не должно срабатывать при регенерации tilemap, чтобы не закрывать проход.
+                {
+                    currentTile.isEmpty = Random.value > difficulty.GetValue();     // Прорежаем в зависимости от сложности 
+                }
                 currentMap.tiles[width_X, lenght_Z] = currentTile;
             }
         }
+
+        MakeFreePath();
+        FillMap();
     }
 
     /// <summary>
     /// 1. "Прорубает" тропинку от первой линии тайлов до последней
-    /// 2. Дополнительнj прореживает препятствия в зависимости от сложности
+    /// 2. Дополнительно прореживает препятствия в зависимости от сложности
     /// </summary>
     private void MakeFreePath()
     {
@@ -91,10 +105,8 @@ public class RoadFiller : MonoBehaviour
             {
                 float sign = Mathf.Sign((float)Random.Range(-1f, 1f));
                 sideCutDirection = (int)sign ;
-                print(sideCutDirection);
             }
 
-            // Рандомно в зависимости от коэффициента заполненности определяем, нужно ли резать ещё раз вбок
             if (Random.value > 0.5f)
             {
                 currentX += sideCutDirection;
@@ -127,9 +139,9 @@ public class RoadFiller : MonoBehaviour
 
             }
         }
-
     }
 
+    // Для тестов
     private void ShowCurrentMapInConsole()
     {
         string line = "";
@@ -145,11 +157,20 @@ public class RoadFiller : MonoBehaviour
         }
     }
 
-
-
-
     public void RefillMap()
     {
+        TileMap newMap = new TileMap(mapWidth, mapLenght);
+
+        for (int width_X = 0; width_X < mapWidth; width_X++)
+        {
+            newMap.tiles[width_X, 0] = currentMap.tiles[width_X, mapLenght - 1];
+        }        
+
+        currentMap = newMap;
+
+        currentMapStartZ += mapLenght * (int)tileLenght;
+
+        FillTileMapWithTiles();
 
     }
 }
