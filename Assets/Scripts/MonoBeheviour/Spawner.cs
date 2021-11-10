@@ -5,16 +5,16 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField]
-    protected int objectsAmountToInit = 10;
+    protected int objectsAmountToInit = 10;  //!!!
 
     public StringReference poolTagToSpawnFrom;
 
-    //[Tooltip("Position of the object first spawned from pool (start generating positing")]
+    [Tooltip("Position of the object first spawned from pool (start generating positing")]
     public Vector3 firstObjectSpawnPosition;
 
-    private ObjectPooler pooler;
+    protected ObjectPooler pooler;
 
-    public GameObject lastSpawnedObject = null;
+    protected GameObject lastSpawnedObject = null;
 
     public void StartSpawn()
     {
@@ -24,7 +24,6 @@ public class Spawner : MonoBehaviour
             Debug.LogError($"Spawner {gameObject.name} couldn't get object pooler");
             return;
         }
-        print("Вызов перед init в Spawner");
 
         Init();
     }

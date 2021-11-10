@@ -37,8 +37,6 @@ public class WorldMover : MonoBehaviour
         {
             obj.transform.position -= Vector3.forward * moveSpeed.value * Time.deltaTime; 
         }
-
-        new ObjectSpawner().StartSpawn();
     }
 
 }
