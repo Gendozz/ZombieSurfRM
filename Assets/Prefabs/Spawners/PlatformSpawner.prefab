@@ -48,6 +48,8 @@ MonoBehaviour:
   objectsAmountToInit: 29
   poolTagToSpawnFrom: {fileID: 11400000, guid: 843c6422bda4e37409aacfe2c3449003, type: 2}
   firstObjectSpawnPosition: {x: 0, y: 0, z: 0}
+  pooler: {fileID: 8531218311289422655, guid: 8d45408bb34ebc7479bf9c57dfe2b511, type: 3}
+  firstObjectSpawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &7614363385308448504
 MonoBehaviour:
   m_ObjectHideFlags: 0

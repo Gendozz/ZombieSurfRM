@@ -35,7 +35,6 @@ public class ObstacleGenerator : MonoBehaviour
     }
 
 
-
     private void Update()                           // УДАЛИТЬ
     {
         if (Input.GetKeyDown(KeyCode.Space))
