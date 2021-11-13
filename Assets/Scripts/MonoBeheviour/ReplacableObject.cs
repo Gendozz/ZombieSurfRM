@@ -22,9 +22,7 @@ public class ReplacableObject : MonoBehaviour, IPooledObject
     {
         if(isReplaced && transform.position.z < minZ.value)
         {
-            //print($"Object with Hash {gameObject.GetHashCode()} position.z is {transform.position.z} ");
             objectIsOutOfSee?.Invoke();
-            //print("INVOKE objectOUTOFSEE");
             isReplaced = false;
         }
     }

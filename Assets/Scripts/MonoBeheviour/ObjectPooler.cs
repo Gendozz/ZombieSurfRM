@@ -67,9 +67,9 @@ public class ObjectPooler : MonoBehaviour
             // ... и помещаем в словарь с ключём == тэгу пула
          
             poolDictionary.Add(pool.poolTag.GetValue(), objectPool);
-            print($"Пул {pool.poolTag.GetValue()} готов");                     // Debug
+            Debug.Log($"Пул {pool.poolTag.GetValue()} готов");                     // Debug
         }  
-        print("Все пулы готовы");                               // Debug
+        Debug.Log("Все пулы готовы");                               // Debug
         poolIsReady?.Invoke();        
     }
 
@@ -95,15 +95,14 @@ public class ObjectPooler : MonoBehaviour
 
         objectToSpawn.SetActive(true);
 
-        // Для чего я это делал?))
+        // На возвращённом объекте вызываем метод OnObjectSpawn
         IPooledObject pooledObject = objectToSpawn.GetComponent<IPooledObject>();
-
         if (pooledObject != null)
         {
             pooledObject.OnObjectSpawn();
         }
-        // не понятно
 
+        // И ставим его в конец очереди
         poolDictionary[tag].Enqueue(objectToSpawn);
 
         return objectToSpawn;

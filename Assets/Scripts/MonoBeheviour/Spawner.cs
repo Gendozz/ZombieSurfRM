@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Base class of all types of spawners.
+/// Works with ObjectPooler.
+/// </summary>
 public class Spawner : MonoBehaviour
 {
     [SerializeField]
@@ -30,8 +34,6 @@ public class Spawner : MonoBehaviour
 
     protected virtual void Init()
     {
-        print("Я в init Spawner");
-
         lastSpawnedObject = pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), firstObjectSpawnPosition);
 
         for (int i = 0; i < objectsAmountToInit - 1; i++)

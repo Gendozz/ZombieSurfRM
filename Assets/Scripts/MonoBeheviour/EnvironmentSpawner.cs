@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+/// <summary>
+/// Spawns environment (road, buldings, decoration etc.) (which are positioning seamlessly 
+/// based on start-to-end technic)
+/// </summary>
 public class EnvironmentSpawner : Spawner
 {
+    private OnRoadObjectMap objectMap;
 
     protected override void AddObject()
     {

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CellFrame
+public class MapGrid
 {
     public Cell[,] cells;
     
-    public CellFrame (int width, int lenght)
+    public MapGrid (int width, int lenght)
     {
         cells = new Cell[width, lenght];
     }
