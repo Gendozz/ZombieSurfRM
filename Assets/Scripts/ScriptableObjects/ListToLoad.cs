@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class ListToLoad : ScriptableObject
 {
+#if UNITY_EDITOR
+    [Multiline(5)]
+    public string Description = "";
+#endif
+
     public List<GameObject> listToLoad = new List<GameObject>();
 
     public List<GameObject> GetList()

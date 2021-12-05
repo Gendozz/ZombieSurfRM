@@ -20,7 +20,10 @@ public class Spawner : MonoBehaviour
 
     protected GameObject lastSpawnedObject = null;
 
-    public void StartSpawn()
+    /// <summary>
+    /// Gets pooler shared instance and calls Init()
+    /// </summary>
+    public virtual void StartSpawn()
     {
         pooler = ObjectPooler.SharedInstance;
         if(pooler == null)
@@ -32,6 +35,9 @@ public class Spawner : MonoBehaviour
         Init();
     }
 
+    /// <summary>
+    /// Puts first few objects on scene
+    /// </summary>
     protected virtual void Init()
     {
         lastSpawnedObject = pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), firstObjectSpawnPosition);
@@ -42,13 +48,9 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    protected virtual void AddObject()
-    {
-        Vector3 newPosition = lastSpawnedObject.GetComponent<ReplacableObject>().endPosition.position;
-        lastSpawnedObject = pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), newPosition);
-    }
+    public virtual void AddObject() { }
 
-    protected virtual void ReplaceObjectOutOfSee()             // TEMP SOLUTION
+    protected virtual void ReplaceObjectOutOfSee()             
     {
         AddObject();
     }

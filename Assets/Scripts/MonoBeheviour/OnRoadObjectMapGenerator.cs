@@ -2,36 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OnRoadObjectMap : MonoBehaviour
+public class OnRoadObjectMapGenerator
 {
     private MapGrid currentMapGrid;
 
     private Cell currentCell;
 
-    public GameObject[] obstacleTypes;
-
-    private int mapGridWidth = 3;
-    private int mapGridLenght = 50;
+    private int mapGridWidth;
+    private int mapGridLength;
 
     private float cellWidth = 2f;
     private float cellLenght = 2f;
 
     private int currentMapGridStartZ = 0;
 
-    [SerializeField]
-    private FloatReference difficulty;
+    private float difficulty;
 
     // нужны логические переменные для определения наличия "стен" сверху, слева и справа => пока не понятно для чего
 
     float offset = 5f; // to use in future
 
-    private void Start()
-    {        
-        currentMapGrid = new MapGrid(mapGridWidth, mapGridLenght);
 
+    public MapGrid GetMapGrid()
+    {
+        return currentMapGrid;
+    }
+
+    public OnRoadObjectMapGenerator(int mapGridWidth, int mapGridLength, float difficulty)
+    {
+        this.mapGridWidth = mapGridWidth;
+        this.mapGridLength = mapGridLength;
+        this.difficulty = difficulty;
+        currentMapGrid = new MapGrid(mapGridWidth, mapGridLength);
         MakeReadyToUseObjectMap();
-        print("End of Start");
-
     }
 
     /// <summary>
@@ -41,7 +44,7 @@ public class OnRoadObjectMap : MonoBehaviour
     {
         FillMapGridWithRandomIsEmptyCells();
         MakeIsEmptyPath();
-        FillObjectMapWithPrefabs();
+        //FillObjectMapWithPrefabs();
 
     }
 
@@ -55,7 +58,7 @@ public class OnRoadObjectMap : MonoBehaviour
         {
             float xPos = width_X * cellWidth + cellWidth / 2;
 
-            for (int lenght_Z = 0; lenght_Z < mapGridLenght; lenght_Z++)
+            for (int lenght_Z = 0; lenght_Z < mapGridLength; lenght_Z++)
             {
                 float zPos = currentMapGridStartZ + (lenght_Z * cellLenght + cellLenght / 2);
 
@@ -63,7 +66,7 @@ public class OnRoadObjectMap : MonoBehaviour
 
                 if (currentMapGridStartZ == 0 || (currentMapGridStartZ != 0 && lenght_Z != 0))  // не должно срабатывать при регенерации CellFrame, чтобы не закрывать проход.
                 {
-                    currentCell.isEmpty = Random.value > difficulty.GetValue();     // Прорежаем в зависимости от сложности 
+                    currentCell.isEmpty = Random.value > difficulty;     // Прорежаем в зависимости от сложности 
                 }
                 currentMapGrid.cells[width_X, lenght_Z] = currentCell;
             }
@@ -115,49 +118,23 @@ public class OnRoadObjectMap : MonoBehaviour
                 currentZ++;
             }
         }
-        while (currentZ < mapGridLenght);
-    }
-
-
-    /// <summary>
-    /// Заполняет НЕпустые тайлы префабами
-    /// Тест для отдельного использования
-    /// </summary>
-    private void FillObjectMapWithPrefabs()
-    {
-        Cell localCell;
-
-        for (int width = 0; width < mapGridWidth; width++)
-        {
-            for (int lenght = 0; lenght < mapGridLenght; lenght++)
-            {
-                localCell = currentMapGrid.cells[width, lenght];
-                if (!localCell.isEmpty)
-                {
-                    int randomObstacleIndex = Random.Range(0, obstacleTypes.Length);
-
-                    Vector3 testCenterPosition = localCell.centerPosition;
-                    testCenterPosition.y += 2;
-                    Instantiate(obstacleTypes[randomObstacleIndex], testCenterPosition, Quaternion.identity);
-                }
-            }
-        }
+        while (currentZ < mapGridLength);
     }
 
     public void RefillMapGrid()
     {
-        MapGrid newMapGrid = new MapGrid(mapGridWidth, mapGridLenght);
+        MapGrid newMapGrid = new MapGrid(mapGridWidth, mapGridLength);
 
 
         // первый ряд новой карты всегда равен последнему ряду текущей карты
         for (int width_X = 0; width_X < mapGridWidth; width_X++)
         {
-            newMapGrid.cells[width_X, 0] = currentMapGrid.cells[width_X, mapGridLenght - 1];
+            newMapGrid.cells[width_X, 0] = currentMapGrid.cells[width_X, mapGridLength - 1];
         }        
 
         currentMapGrid = newMapGrid;
 
-        currentMapGridStartZ += mapGridLenght * (int)cellLenght;
+        currentMapGridStartZ += mapGridLength * (int)cellLenght;
 
         FillMapGridWithRandomIsEmptyCells();
 
@@ -167,7 +144,7 @@ public class OnRoadObjectMap : MonoBehaviour
     private void ShowCurrentCellFrameInConsole()
     {
         string line = "";
-        for (int i = 0; i < mapGridLenght; i++)
+        for (int i = 0; i < mapGridLength; i++)
         {
             line = "";
             for (int j = 0; j < mapGridWidth; j++)
@@ -175,20 +152,46 @@ public class OnRoadObjectMap : MonoBehaviour
                 line += " " + currentMapGrid.cells[j, i].isEmpty;
             }
 
-            print(line);
+            Debug.Log(line);
         }
     }
 
-    private void Update()                           
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            print("Space pressed");
-            RefillMapGrid();
-            MakeIsEmptyPath();
-            FillObjectMapWithPrefabs();
-        }
-    } 
+    /// <summary>
+    /// Заполняет НЕпустые тайлы префабами
+    /// Тест для отдельного использования
+    /// </summary>
+    //private void FillObjectMapWithPrefabs()
+    //{
+    //    Cell localCell;
+
+    //    for (int width = 0; width < mapGridWidth; width++)
+    //    {
+    //        for (int lenght = 0; lenght < mapGridLenght; lenght++)
+    //        {
+    //            localCell = currentMapGrid.cells[width, lenght];
+    //            if (!localCell.isEmpty)
+    //            {
+    //                int randomObstacleIndex = Random.Range(0, obstacleTypes.Length);
+
+    //                Vector3 testCenterPosition = localCell.centerPosition;
+    //                testCenterPosition.y += 2;
+    //                Instantiate(obstacleTypes[randomObstacleIndex], testCenterPosition, Quaternion.identity);
+    //            }
+    //        }
+    //    }
+    //}
+
+
+
+    //private void Update()                           
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Space))
+    //    {
+    //        RefillMapGrid();
+    //        MakeIsEmptyPath();
+    //        FillObjectMapWithPrefabs();
+    //    }
+    //} 
     #endregion
 
 }

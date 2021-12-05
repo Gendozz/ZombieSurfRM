@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688c647d5214bca4392385520e18e542, type: 3}
   m_Name: LoadOnGameScene
   m_EditorClassIdentifier: 
+  Description: 'If new element will added - keep order:
+
+    1. Poolers;
+
+    2.
+    Spawners;
+
+    3. Movers.'
   listToLoad:
   - {fileID: 8531218311289422654, guid: 8d45408bb34ebc7479bf9c57dfe2b511, type: 3}
   - {fileID: 8881581864634248758, guid: 0993f1fd9c57112479ef066aaee6e43d, type: 3}

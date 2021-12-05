@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Создаёт все объекты, необходимые для старта игры
+/// Loads all service objects (spawners, pools etc)
 /// </summary>
 public class LevelLoader : MonoBehaviour
 {

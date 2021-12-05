@@ -73,3 +73,7 @@ MonoBehaviour:
       type: 3}
     size: 30
     container: {fileID: 0}
+  - poolTag: {fileID: 11400000, guid: 1bc16621d4eb88e439592b76947e630a, type: 2}
+    prefab: {fileID: 478190764966800203, guid: fc8ece3020386eb4a993f8e4bb107f04, type: 3}
+    size: 100
+    container: {fileID: 0}

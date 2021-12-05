@@ -8,9 +8,7 @@ using UnityEngine;
 /// </summary>
 public class EnvironmentSpawner : Spawner
 {
-    private OnRoadObjectMap objectMap;
-
-    protected override void AddObject()
+    public override void AddObject()
     {
         Vector3 newPosition = lastSpawnedObject.GetComponent<ReplacableObject>().endPosition.position;
         lastSpawnedObject = pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), newPosition);

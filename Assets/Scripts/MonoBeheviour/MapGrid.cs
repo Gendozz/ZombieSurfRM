@@ -1,13 +1,28 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class MapGrid
+public struct MapGrid : IEnumerable
 {
+    private int width;
+
+    private int length;
+
     public Cell[,] cells;
     
-    public MapGrid (int width, int lenght)
+    public MapGrid (int width, int length)
     {
-        cells = new Cell[width, lenght];
+        cells = new Cell[width, length];
+        this.width = width;
+        this.length = length;
+    }
+
+    public IEnumerator GetEnumerator()
+    {
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < length; j++)
+            {
+                yield return cells[i, j];
+            }
+        }
     }
 }
