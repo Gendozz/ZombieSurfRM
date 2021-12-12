@@ -30,7 +30,7 @@ public class ObjectPooler : MonoBehaviour
 
     public UnityEvent poolIsReady;
 
-    // А-ля синглтон
+    // A la singlton
     public static ObjectPooler SharedInstance;
 
     private void Awake()
@@ -38,11 +38,13 @@ public class ObjectPooler : MonoBehaviour
         SharedInstance = this;
     }
 
-    // Список пулов
+    /// <summary>
+    /// List of pools. Fill in inspector
+    /// </summary>
     public List<Pool> pools;
     
     // Словарь пулов
-    public Dictionary<string, Queue<GameObject>> poolDictionary;
+    private Dictionary<string, Queue<GameObject>> poolDictionary;
 
     /// <summary>
     /// Инициализируем словарь пулов префабами, каждый пул помещаем в свой контенйер

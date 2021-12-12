@@ -45,10 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c4105a5db0eb741bbcbb079c143e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsAmountToInit: 29
+  objectsAmountToInit: 10
   poolTagToSpawnFrom: {fileID: 11400000, guid: da7ea8c33bcce9a42a8d050f59d93d54, type: 2}
-  firstObjectSpawnPosition: {x: -10, y: 5.5, z: 0}
-  pooler: {fileID: 8531218311289422655, guid: 8d45408bb34ebc7479bf9c57dfe2b511, type: 3}
   firstObjectSpawnPosition: {x: -10, y: 5.5, z: 0}
 --- !u!114 &8881581864634248760
 MonoBehaviour:

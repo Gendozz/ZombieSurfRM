@@ -17,20 +17,29 @@ public class OnRoadObjectSpawner : Spawner
 
     public override void StartSpawn()
     {
-        objectMap = new OnRoadObjectMapGenerator(mapWidth, mapLength, difficulty);
+        objectMap = new OnRoadObjectMapGenerator(mapWidth, mapLength, difficulty, firstObjectSpawnPosition);
         base.StartSpawn();
     }
 
     public override void AddObject()
     {
-        foreach (Cell cell in objectMap.GetMapGrid())
-        {
-            Vector3 position = cell.centerPosition;
-            if (!cell.isEmpty)
-            {
-                pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), position);
-            }            
-        }
+        pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), objectMap.GetPositionToSpawn());
+
+        print("Вызов AddObject из OnRoadObjectSpawner");
     }
+
+    //public override void AddObject()
+    //{
+    //    foreach (Cell cell in objectMap.GetMapGrid())
+    //    {
+    //        if (!cell.isEmpty)
+    //        {
+    //            pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), cell.centerPosition);
+    //            print("currentCell HashCode " + cell.GetType() + " - " + cell.GetHashCode());
+    //        }
+    //    }
+
+    //    print("Вызов AddObject из OnRoadObjectSpawner");
+    //}
 
 }

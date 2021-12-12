@@ -9,11 +9,11 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField]
-    protected int objectsAmountToInit = 10;  //!!!
+    protected int objectsAmountToInit = 10;  //Changed in inspector
 
     public StringReference poolTagToSpawnFrom;
 
-    [Tooltip("Position of the object first spawned from pool (start generating positing")]
+    [Tooltip("Position of the object first spawned from pool")]
     public Vector3 firstObjectSpawnPosition;
 
     protected ObjectPooler pooler;
@@ -42,7 +42,7 @@ public class Spawner : MonoBehaviour
     {
         lastSpawnedObject = pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), firstObjectSpawnPosition);
 
-        for (int i = 0; i < objectsAmountToInit - 1; i++)
+        for (int i = 0; i < objectsAmountToInit; i++)
         {
             AddObject();
         }
