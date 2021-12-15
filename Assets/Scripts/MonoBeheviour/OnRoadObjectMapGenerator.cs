@@ -38,20 +38,19 @@ public class OnRoadObjectMapGenerator : IEnumerator<Cell>
         this.mapGridLanesAmount = mapGridLanesAmount;
         this.mapGridRowsAmount = mapGridRowsAmount;
         this.difficulty = difficulty;
-        this.firstObjectSpawnPosition = firstObjectSpawnPosition;        
-        Reset();
+        this.firstObjectSpawnPosition = firstObjectSpawnPosition;
+        MakeReadyToUseObjectMap();
     }
 
     /// <summary>
-    /// Make changes to currentMapGrid so it's Cells got coordinates and final isEmpty property
+    /// Make changes to currentMapGrid so it's Cells got coordinates and isEmpty property.
+    /// It's shell around Reset() because Reset() was needed to implement IEnumerator and
+    /// both of them implemented the same functionality
     /// </summary>
-    //private void MakeReadyToUseObjectMap()
-    //{
-    //    enumerator = GetGridEnumerable.GetEnumerator();
-    //    currentMapGrid = new MapGrid(mapGridLanesAmount, mapGridRowsAmount);
-    //    FillMapGridWithRandomIsEmptyCells();
-    //    MakeIsEmptyPath();
-    //}
+    private void MakeReadyToUseObjectMap()
+    {
+        Reset();
+    }
 
     /// <summary>
     /// Initiates all Cells of currentMapGrid with coordinates and random isEmpty property
@@ -61,16 +60,16 @@ public class OnRoadObjectMapGenerator : IEnumerator<Cell>
         // Заполняем CellFrame ячейками, устанавливая их координаты
         for (int laneNumber = 0; laneNumber < mapGridLanesAmount; laneNumber++)
         {
-            float xPos = laneNumber * cellWidth + cellWidth / 2 + firstObjectSpawnPosition.x;
+            float xPos = laneNumber * cellWidth + firstObjectSpawnPosition.x;
 
             for (int rowNumber = 0; rowNumber < mapGridRowsAmount; rowNumber++)
             {
                 float zPos = currentMapGridStartZ + (rowNumber * cellLenght + cellLenght / 2);
 
-                if (laneNumber == 0 && rowNumber == 0)
-                {
-                    zPos = GetFirstCellPosition().z;
-                }
+                //if (laneNumber == 0 && rowNumber == 0)
+                //{
+                //    zPos = GetFirstCellPosition().z;
+                //}
 
                 currentCell = new Cell(xPos, zPos);
 
@@ -144,23 +143,15 @@ public class OnRoadObjectMapGenerator : IEnumerator<Cell>
                 Reset();
                 MoveNext();
             } 
-        } while (!mapEnumerator.Current.isEmpty);
+        } while (mapEnumerator.Current.isEmpty);
 
 
         Cell cell = mapEnumerator.Current;
         position = cell.centerPosition;
 
+        //Debug.Log($"Current cell hash => {cell.GetHashCode()} in position {cell.centerPosition} it's isEmpty is {cell.isEmpty}");
+
         return position;
-        //IEnumerator<Cell> cellEnumerator = GetNextCellToSpawnInto().GetEnumerator();
-
-        //if (cellEnumerator.MoveNext())
-        //{
-        //    Debug.Log("currentCell HashCode " + cellEnumerator.Current + " - " + cellEnumerator.Current.GetHashCode());
-        //    return cellEnumerator.Current.centerPosition;
-        //}
-
-        //Debug.Log("No next cell <= FROM OnRoadObjectMapGenerator");
-        //return Vector3.zero;
     }
 
     public IEnumerable<Cell> GetGridEnumerable()
@@ -268,9 +259,11 @@ public class OnRoadObjectMapGenerator : IEnumerator<Cell>
     }
 
     public void Reset()
-    {
-        mapEnumerator = GetGridEnumerable().GetEnumerator();
+    {        
+        Debug.Log("Reset from OnRoadObjectMapGenerator called");
+
         currentMapGrid = new MapGrid(mapGridLanesAmount, mapGridRowsAmount);
+        mapEnumerator = GetGridEnumerable().GetEnumerator();        
         FillMapGridWithRandomIsEmptyCells();
         MakeIsEmptyPath();
     }

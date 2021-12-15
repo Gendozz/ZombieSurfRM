@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: WorldMovingSpeed
   m_EditorClassIdentifier: 
   Description: 'The speed at which the world is moving '
-  value: 6
+  value: 10

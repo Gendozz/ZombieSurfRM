@@ -18,10 +18,8 @@ public class Spawner : MonoBehaviour
 
     protected ObjectPooler pooler;
 
-    protected GameObject lastSpawnedObject = null;
-
     /// <summary>
-    /// Gets pooler shared instance and calls Init()
+    /// Gets pooler shared instance and calls Init(). Called by UnityEvent when pooler is ready
     /// </summary>
     public virtual void StartSpawn()
     {
@@ -36,16 +34,18 @@ public class Spawner : MonoBehaviour
     }
 
     /// <summary>
-    /// Puts first few objects on scene
+    /// Puts first few ("int objectsAmountToInit") objects on scene
     /// </summary>
     protected virtual void Init()
     {
-        lastSpawnedObject = pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), firstObjectSpawnPosition);
-
+        print("Init() from => " + this.GetType() + "| GO name => " + gameObject.name);
+        
         for (int i = 0; i < objectsAmountToInit; i++)
         {
-            AddObject();
+            AddObject();            
         }
+
+        
     }
 
     public virtual void AddObject() { }

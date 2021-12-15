@@ -23,9 +23,10 @@ public class OnRoadObjectSpawner : Spawner
 
     public override void AddObject()
     {
+        print("Вызов AddObject из OnRoadObjectSpawner");
         pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), objectMap.GetPositionToSpawn());
 
-        print("Вызов AddObject из OnRoadObjectSpawner");
+        
     }
 
     //public override void AddObject()

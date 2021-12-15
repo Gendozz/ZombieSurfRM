@@ -265,7 +265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &102150294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectsAmountToInit: 10
   poolTagToSpawnFrom: {fileID: 11400000, guid: 1bc16621d4eb88e439592b76947e630a, type: 2}
-  firstObjectSpawnPosition: {x: -3, y: 0, z: 0}
+  firstObjectSpawnPosition: {x: -3, y: 2, z: 0}
 --- !u!4 &102150295
 Transform:
   m_ObjectHideFlags: 0

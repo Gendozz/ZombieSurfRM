@@ -27,7 +27,6 @@ public class ObjectPooler : MonoBehaviour
         public Transform container;
     }
 
-
     public UnityEvent poolIsReady;
 
     // A la singlton
@@ -97,7 +96,7 @@ public class ObjectPooler : MonoBehaviour
 
         objectToSpawn.SetActive(true);
 
-        // На возвращённом объекте вызываем метод OnObjectSpawn
+        //На возвращённом объекте вызываем метод OnObjectSpawn
         IPooledObject pooledObject = objectToSpawn.GetComponent<IPooledObject>();
         if (pooledObject != null)
         {
@@ -106,6 +105,8 @@ public class ObjectPooler : MonoBehaviour
 
         // И ставим его в конец очереди
         poolDictionary[tag].Enqueue(objectToSpawn);
+
+        print("Object return from pool with tag => " + tag);
 
         return objectToSpawn;
     }
