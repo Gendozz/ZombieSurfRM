@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Spawns obstacles and all collectibles (which are positioning based on CellFrame)
@@ -13,7 +11,7 @@ public class OnRoadObjectSpawner : Spawner
 
     private int mapLength = 30;
 
-    private float difficulty = 0.25f;
+    private float difficulty = 0.5f;
 
     public override void StartSpawn()
     {
@@ -23,24 +21,7 @@ public class OnRoadObjectSpawner : Spawner
 
     public override void AddObject()
     {
-        print("Вызов AddObject из OnRoadObjectSpawner");
-        pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), objectMap.GetPositionToSpawn());
-
-        
+        Vector3 positionToSpawn = objectMap.GetPositionToSpawn();
+        pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), positionToSpawn);        
     }
-
-    //public override void AddObject()
-    //{
-    //    foreach (Cell cell in objectMap.GetMapGrid())
-    //    {
-    //        if (!cell.isEmpty)
-    //        {
-    //            pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), cell.centerPosition);
-    //            print("currentCell HashCode " + cell.GetType() + " - " + cell.GetHashCode());
-    //        }
-    //    }
-
-    //    print("Вызов AddObject из OnRoadObjectSpawner");
-    //}
-
 }

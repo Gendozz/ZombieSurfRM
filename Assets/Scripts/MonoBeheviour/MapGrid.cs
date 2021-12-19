@@ -25,15 +25,4 @@ public struct MapGrid : IEnumerable
             }
         }
     }    
-    
-    //public IEnumerator GetEnumerator()
-    //{
-    //    for (int i = 0; i < width; i++)
-    //    {
-    //        for (int j = 0; j < length; j++)
-    //        {
-    //            yield return cells[i, j];
-    //        }
-    //    }
-    //}
 }

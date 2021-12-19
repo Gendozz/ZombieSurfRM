@@ -278,7 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4acd3184a4fc0d841b389096357e6a1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsAmountToInit: 10
+  objectsAmountToInit: 40
   poolTagToSpawnFrom: {fileID: 11400000, guid: 1bc16621d4eb88e439592b76947e630a, type: 2}
   firstObjectSpawnPosition: {x: -3, y: 2, z: 0}
 --- !u!4 &102150295

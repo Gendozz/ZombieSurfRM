@@ -19,9 +19,7 @@ public class EnvironmentSpawner : Spawner
 
     public override void AddObject()
     {
-        print("AddObject() from EnvironmentSpawner with poolTag => " + poolTagToSpawnFrom.GetValue());
         Vector3 newPosition = lastSpawnedObject.GetComponent<ReplacableObject>().endPosition.position;
-        lastSpawnedObject = pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), newPosition);
-        
+        lastSpawnedObject = pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), newPosition);        
     }
 }

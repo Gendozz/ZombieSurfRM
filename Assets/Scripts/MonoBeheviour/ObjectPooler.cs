@@ -4,26 +4,24 @@ using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
-/// Пул объектов на основе словаря
+/// Dictonary-based object pooler
 /// </summary>
 public class ObjectPooler : MonoBehaviour
 {
     /// <summary>
-    /// Шаблон пула
+    /// Single pool template
     /// </summary>
     [System.Serializable]
     public class Pool
     {
-        // Тэг пула
         public StringReference poolTag;
 
-        // Префаб, помещаемый в пул
         public GameObject prefab;
 
-        // Размер пула
+        // Pool size
         public int size;
 
-        // Контейнер, в который помещаются префабы пула
+        // The container in which the pool prefabs are placed
         public Transform container;
     }
 
@@ -46,13 +44,13 @@ public class ObjectPooler : MonoBehaviour
     private Dictionary<string, Queue<GameObject>> poolDictionary;
 
     /// <summary>
-    /// Инициализируем словарь пулов префабами, каждый пул помещаем в свой контенйер
+    /// Initialize the pool dictionary with prefabs, put each pool objects in their own container
     /// </summary>
     void Start()
     {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
-        // Создаём контейнер для каждого пула из списка пулов, заполняем его префабами ...
+        // Create container for each pool, fill it with perfabs ...
         foreach (Pool pool in pools)
         {            
             pool.container = new GameObject("ContainerForPooled_" + pool.poolTag.GetValue() + "s").transform;
@@ -65,62 +63,63 @@ public class ObjectPooler : MonoBehaviour
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);                
             }
-            // ... и помещаем в словарь с ключём == тэгу пула
+            // ... and put it in dictionary with key == poolTag
          
             poolDictionary.Add(pool.poolTag.GetValue(), objectPool);
-            Debug.Log($"Пул {pool.poolTag.GetValue()} готов");                     // Debug
+            Debug.Log($"Пул {pool.poolTag.GetValue()} готов");                      // Debug
         }  
-        Debug.Log("Все пулы готовы");                               // Debug
+        Debug.Log("Все пулы готовы");                                               // Debug
         poolIsReady?.Invoke();        
     }
 
     /// <summary>
-    /// Возвращает объект из пула и размещает его на сцене в указанной позиции
+    /// Returns object from the pool and puts it in the scene in specified position
     /// </summary>
-    /// <param name="tag">Тэг пула, из которого берётся объект</param>
-    /// <param name="position">Координаты, в которых размещается объект</param>
+    /// <param name="tag">Pool tag in which the object is taken</param>
+    /// <param name="position">Position at which object will be placed</param>
     /// <returns></returns>
     public GameObject SpawnFromPool(string tag, Vector3 position)
     {
-        // Если словаря с полученным tag нет - ничего не делаем
+        // If there is no dictionary with given tag - do nothing
         if (!poolDictionary.ContainsKey(tag))
         {
-            Debug.LogWarning($"There's no pool with tag => {tag}");
+            Debug.LogError($"There's no pool with tag => {tag}");
             return null;
         }
 
-        // Достаём из пула объект, активируем, размещаем его на сцене и кладём обратно в пул
+        // Get object from pool, set it's 'active' to true, place object in the scene and put it back to the pool
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
+        
         objectToSpawn.transform.position = position;
 
+        if (tag.Equals("ObstacleRedBox"))
+        {        
+            objectToSpawn.transform.localPosition = objectToSpawn.transform.position;
+        }
         objectToSpawn.SetActive(true);
 
-        //На возвращённом объекте вызываем метод OnObjectSpawn
+        // Call OnObjectSpawn() on current getted from pool object
         IPooledObject pooledObject = objectToSpawn.GetComponent<IPooledObject>();
         if (pooledObject != null)
         {
             pooledObject.OnObjectSpawn();
         }
 
-        // И ставим его в конец очереди
+        // Put in back in pool in the end of queue
         poolDictionary[tag].Enqueue(objectToSpawn);
-
-        print("Object return from pool with tag => " + tag);
 
         return objectToSpawn;
     }
 
     /// <summary>
-    /// Предоставляет ссылку на объект, который будет возвращён следующим из пула по тэгу "listTagToPeek"
+    /// Gives the link to the object, thst will be return from poll next by tag 'listTagToPeek'
     /// </summary>
-    /// <param name="listTagToPeek"></param>
-    /// <returns></returns>
     public GameObject GetObjectToReplace(string listTagToPeek)
     {
         if (!poolDictionary.ContainsKey(listTagToPeek))
         {
-            Debug.Log($"There's no pool with tag => {listTagToPeek}");
+            Debug.LogError($"There's no pool with tag => {listTagToPeek}");
             return null;
         }
         return poolDictionary[listTagToPeek].Peek();

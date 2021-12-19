@@ -37,15 +37,11 @@ public class Spawner : MonoBehaviour
     /// Puts first few ("int objectsAmountToInit") objects on scene
     /// </summary>
     protected virtual void Init()
-    {
-        print("Init() from => " + this.GetType() + "| GO name => " + gameObject.name);
-        
+    {        
         for (int i = 0; i < objectsAmountToInit; i++)
         {
             AddObject();            
-        }
-
-        
+        }        
     }
 
     public virtual void AddObject() { }

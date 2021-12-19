@@ -20,7 +20,6 @@ public class ReplacableObject : MonoBehaviour, IPooledObject
     {
         if(isSpawned && transform.position.z < minZ.value)
         {
-            print($"Object with name {gameObject.name} invoked |objectIsOutOfSee| Event");
             objectIsOutOfSee?.Invoke();
             isSpawned = false;
             gameObject.SetActive(false);
