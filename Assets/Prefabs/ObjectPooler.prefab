@@ -61,15 +61,19 @@ MonoBehaviour:
   - poolTag: {fileID: 11400000, guid: 843c6422bda4e37409aacfe2c3449003, type: 2}
     prefab: {fileID: 7950335144479799850, guid: acf3831ae3951754f9285b6378ee4abe,
       type: 3}
-    size: 30
+    size: 62
     container: {fileID: 0}
   - poolTag: {fileID: 11400000, guid: dccf7f11c0d8ce44da018a0403bd34a7, type: 2}
     prefab: {fileID: 6882760962250746494, guid: 7bb85e9348a187b428e6f81e62aa12ab,
       type: 3}
-    size: 30
+    size: 32
     container: {fileID: 0}
   - poolTag: {fileID: 11400000, guid: da7ea8c33bcce9a42a8d050f59d93d54, type: 2}
     prefab: {fileID: 6882760962250746494, guid: 79c75c2f6efa9bd4bbb7fdc0b09d2be6,
       type: 3}
-    size: 30
+    size: 32
+    container: {fileID: 0}
+  - poolTag: {fileID: 11400000, guid: 1bc16621d4eb88e439592b76947e630a, type: 2}
+    prefab: {fileID: 478190764966800203, guid: fc8ece3020386eb4a993f8e4bb107f04, type: 3}
+    size: 50
     container: {fileID: 0}

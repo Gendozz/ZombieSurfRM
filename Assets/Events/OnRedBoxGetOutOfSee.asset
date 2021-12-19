@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c49f936687472914094f6b6a746ad2c4, type: 3}
-  m_Name: WorldMovingSpeed
+  m_Script: {fileID: 11500000, guid: 7284cbfa0705ca240a37d44e21aafe7c, type: 3}
+  m_Name: OnRedBoxGetOutOfSee
   m_EditorClassIdentifier: 
-  Description: 'The speed at which the world is moving '
-  value: 30

@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 6882760962250746464}
   - component: {fileID: 6882760962250746495}
   m_Layer: 0
-  m_Name: Building
+  m_Name: R_Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
   objectIsOutOfSee:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 8e8afca736ee3d648833a4a194fc132a, type: 2}
+      - m_Target: {fileID: 11400000, guid: 447f8e4c17aff204286b7fc021486a61, type: 2}
         m_MethodName: Raise
         m_Mode: 1
         m_Arguments:
@@ -198,3 +198,4 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   minZ: {fileID: 11400000, guid: 6535985c558c41345aedef40705adbed, type: 2}
+  isReplaced: 0

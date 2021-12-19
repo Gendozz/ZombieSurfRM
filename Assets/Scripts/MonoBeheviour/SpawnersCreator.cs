@@ -13,7 +13,7 @@ public class SpawnersCreator : MonoBehaviour
 
     public void InstanciateSpawners()
     {
-        pooler = ObjectPooler.Instance;
+        pooler = ObjectPooler.SharedInstance;
         List<ObjectPooler.Pool> pools = pooler.pools;
         for (int i = 0; i < pools.Count; i++)
         {

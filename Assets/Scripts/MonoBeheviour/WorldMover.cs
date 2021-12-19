@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 /// <summary>
-/// Двигает объекты в списке с заданной скоростью
+/// Move objects at a given speed
 /// </summary>
 public class WorldMover : MonoBehaviour
 {
@@ -16,10 +16,12 @@ public class WorldMover : MonoBehaviour
 
     private bool canMove = false;
 
-    // Перед началом движения добавляем все контейнеры пулов в список объектов, которые будем двигать
+    /// <summary>
+    /// Add all pool containers which will be moving
+    /// </summary>
     public void PrepareToMove()
     {
-        pooler = ObjectPooler.Instance;
+        pooler = ObjectPooler.SharedInstance;
 
         for (int i = 0; i < pooler.pools.Count; i++)
         {

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8271692905660327038}
   - component: {fileID: 3071372428653665285}
   - component: {fileID: 6025238009911086933}
+  - component: {fileID: -3289546790063134712}
   m_Layer: 0
   m_Name: TestObstacle1
   m_TagString: Untagged
@@ -93,3 +94,33 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-3289546790063134712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478190764966800203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82b5428e38a280439fea525690f1320, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endPosition: {fileID: 0}
+  firstCreationPosition: {fileID: 0}
+  objectIsOutOfSee:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 8e8afca736ee3d648833a4a194fc132a, type: 2}
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  minZ: {fileID: 11400000, guid: 6535985c558c41345aedef40705adbed, type: 2}
+  isReplaced: 0

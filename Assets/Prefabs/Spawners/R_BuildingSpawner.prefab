@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c4105a5db0eb741bbcbb079c143e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsAmountToInit: 29
+  objectsAmountToInit: 30
   poolTagToSpawnFrom: {fileID: 11400000, guid: dccf7f11c0d8ce44da018a0403bd34a7, type: 2}
   firstObjectSpawnPosition: {x: 10, y: 5.5, z: 0}
 --- !u!114 &7863693685235343491
@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fd77057639af554f81a4efedc862956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 8e8afca736ee3d648833a4a194fc132a, type: 2}
+  gameEvent: {fileID: 11400000, guid: 447f8e4c17aff204286b7fc021486a61, type: 2}
   response:
     m_PersistentCalls:
       m_Calls:

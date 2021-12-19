@@ -5,27 +5,24 @@ public class ReplacableObject : MonoBehaviour, IPooledObject
 {
     public Transform endPosition;
 
-    public Vector3Reference firstCreationPosition;
-
     public UnityEvent objectIsOutOfSee;
 
     public FloatReference minZ;
 
-    public bool isReplaced = false;
+    public bool isSpawned = false;
 
     public void OnObjectSpawn()
     {
-        isReplaced = true;
+        isSpawned = true;
     }
 
     private void Update()
     {
-        if(isReplaced && transform.position.z < minZ.value)
+        if(isSpawned && transform.position.z < minZ.value)
         {
-            print($"Object with Hash {gameObject.GetHashCode()} position.z is {transform.position.z} ");
             objectIsOutOfSee?.Invoke();
-            print("INVOKE objectOUTOFSEE");
-            isReplaced = false;
+            isSpawned = false;
+            gameObject.SetActive(false);
         }
     }
 }
