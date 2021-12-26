@@ -5,7 +5,7 @@
 /// </summary>
 public class OnRoadObjectSpawner : Spawner
 {
-    private OnRoadObjectMapGenerator objectMap;
+    private IObjectGenerator generator;
 
     private int mapWidth = 3;
 
@@ -13,15 +13,38 @@ public class OnRoadObjectSpawner : Spawner
 
     private float difficulty = 0.5f;
 
+    [Header("Generator type based on:")]
+    public generatorType type;
+
+    public enum generatorType
+    {
+        MAP,
+        DELAY
+    }
+
     public override void StartSpawn()
     {
-        objectMap = new OnRoadObjectMapGenerator(mapWidth, mapLength, difficulty, firstObjectSpawnPosition);
+        switch (type)
+        {
+            case generatorType.MAP:
+                generator = new OnRoadObjectMapGenerator(mapWidth, mapLength, difficulty, firstObjectSpawnPosition);
+                break;
+            case generatorType.DELAY:
+                generator = new OnRoadDelayedObjectGenerator(firstObjectSpawnPosition, mapWidth);
+                break;
+            default:
+                Debug.LogError("No OnRoad generator found");
+                break;
+        }
+
         base.StartSpawn();
     }
 
     public override void AddObject()
     {
-        Vector3 positionToSpawn = objectMap.GetPositionToSpawn();
-        pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), positionToSpawn);        
+        Vector3 positionToSpawn = generator.GetPositionToSpawn();
+        pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), positionToSpawn);
     }
 }
+
+

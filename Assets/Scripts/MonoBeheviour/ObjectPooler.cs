@@ -16,7 +16,7 @@ public class ObjectPooler : MonoBehaviour
     {
         public StringReference poolTag;
 
-        public GameObject prefab;
+        public GameObject[] prefabs;
 
         // Pool size
         public int size;
@@ -59,7 +59,7 @@ public class ObjectPooler : MonoBehaviour
 
             for (int i = 0; i < pool.size; i++)
             {
-                GameObject obj = Instantiate(pool.prefab, pool.container); 
+                GameObject obj = Instantiate(pool.prefabs[Random.Range(0, pool.prefabs.Length)], pool.container); 
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);                
             }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OnRoadObjectMapGenerator : IEnumerator<Cell>
+public class OnRoadObjectMapGenerator : IEnumerator<Cell>, IObjectGenerator
 {
     private MapGrid currentMapGrid;
     private int mapGridLanesAmount;
