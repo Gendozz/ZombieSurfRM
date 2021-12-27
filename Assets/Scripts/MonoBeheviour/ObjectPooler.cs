@@ -14,6 +14,9 @@ public class ObjectPooler : MonoBehaviour
     [System.Serializable]
     public class Pool
     {
+        [HideInInspector]
+        public string itemName;
+
         public StringReference poolTag;
 
         public GameObject[] prefabs;

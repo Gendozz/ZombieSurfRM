@@ -60,7 +60,13 @@ MonoBehaviour:
   pools:
   - poolTag: {fileID: 11400000, guid: 843c6422bda4e37409aacfe2c3449003, type: 2}
     prefabs:
+    - {fileID: 4939243902716709010, guid: 00d20d2a1ed3152488afa7b4181dbb09, type: 3}
     - {fileID: 4939243902716709010, guid: 70351edf841d64149ba6376b0a22a148, type: 3}
+    - {fileID: 4939243902716709010, guid: 449c63e14fde45f488cb8cbd5f67585f, type: 3}
+    - {fileID: 4939243902716709010, guid: cf493b33d1452f9428d90a78c4fd1337, type: 3}
+    - {fileID: 4939243902716709010, guid: 025e5d61574030c459fec8419c222324, type: 3}
+    - {fileID: 4939243902716709010, guid: 4b11a80e89fa8bd44a9a09f6309fae87, type: 3}
+    - {fileID: 4939243902716709010, guid: 248419b4045a5574ebf17f6b4154116b, type: 3}
     size: 62
     container: {fileID: 0}
   - poolTag: {fileID: 11400000, guid: dccf7f11c0d8ce44da018a0403bd34a7, type: 2}
