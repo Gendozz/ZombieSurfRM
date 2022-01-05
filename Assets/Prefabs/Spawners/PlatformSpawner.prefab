@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectsAmountToInit: 60
   poolTagToSpawnFrom: {fileID: 11400000, guid: 843c6422bda4e37409aacfe2c3449003, type: 2}
-  firstObjectSpawnPosition: {x: 1.5, y: 0, z: 0}
+  firstObjectSpawnPosition: {x: 1.5, y: 0, z: -3}
 --- !u!114 &7614363385308448504
 MonoBehaviour:
   m_ObjectHideFlags: 0

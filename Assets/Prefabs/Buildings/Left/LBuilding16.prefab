@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &9024791113069451295
 Transform:
@@ -44,7 +44,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &6746497836018141784
 Transform:
@@ -81,7 +81,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &7019997322175290449
 Transform:
@@ -128,7 +128,7 @@ MonoBehaviour:
   objectIsOutOfSee:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 1882ea079416f6e44aa8fea53e278b93, type: 2}
+      - m_Target: {fileID: 11400000, guid: 5cea63ab5b3f9974498b0e3435b2a6b7, type: 2}
         m_MethodName: Raise
         m_Mode: 1
         m_Arguments:
@@ -151,6 +151,10 @@ PrefabInstance:
     - target: {fileID: 105090, guid: 3789d65be84741545afcfb9b91749198, type: 3}
       propertyPath: m_Name
       value: SM_Bld_House_Chimney_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 105090, guid: 3789d65be84741545afcfb9b91749198, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 471670, guid: 3789d65be84741545afcfb9b91749198, type: 3}
       propertyPath: m_LocalPosition.x
@@ -227,6 +231,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_House_Door_01
       objectReference: {fileID: 0}
+    - target: {fileID: 132052, guid: b4da227c9b849fe42ae5257c25064f33, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 426590, guid: b4da227c9b849fe42ae5257c25064f33, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.22
@@ -289,6 +297,10 @@ PrefabInstance:
     - target: {fileID: 100108, guid: 8c4ffe1cdf6340143be5ddb96c2c0c5b, type: 3}
       propertyPath: m_Name
       value: SM_Bld_House_Foundation_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 100108, guid: 8c4ffe1cdf6340143be5ddb96c2c0c5b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 489602, guid: 8c4ffe1cdf6340143be5ddb96c2c0c5b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -353,6 +365,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Bld_House_FoundationRock_01
       objectReference: {fileID: 0}
+    - target: {fileID: 192068, guid: 2cbe4111caaa52243a97077dfc33593c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 416368, guid: 2cbe4111caaa52243a97077dfc33593c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -415,6 +431,10 @@ PrefabInstance:
     - target: {fileID: 155592, guid: 45f56cd437954cd49bcafe3dee02d907, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Castle_Wood_Battlement_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 155592, guid: 45f56cd437954cd49bcafe3dee02d907, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 411484, guid: 45f56cd437954cd49bcafe3dee02d907, type: 3}
       propertyPath: m_LocalPosition.x

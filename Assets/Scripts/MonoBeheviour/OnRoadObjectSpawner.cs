@@ -13,13 +13,16 @@ public class OnRoadObjectSpawner : Spawner
 
     private float difficulty = 0.5f;
 
-    [Header("Generator type based on:")]
+    [Header("Generator type based on:"), Tooltip("MAP - 3 lanes, based on back cut\n" +
+        "DELAY - 3 lanes, random lane, random distance\n" +
+        "LINEAR - 1 lane, for decorartions")]
     public generatorType type;
 
     public enum generatorType
     {
         MAP,
-        DELAY
+        DELAY,
+        LINEAR
     }
 
     public override void StartSpawn()
@@ -31,6 +34,9 @@ public class OnRoadObjectSpawner : Spawner
                 break;
             case generatorType.DELAY:
                 generator = new OnRoadDelayedObjectGenerator(firstObjectSpawnPosition, mapWidth);
+                break;
+            case generatorType.LINEAR:
+                generator = new OnRoadDelayedObjectGenerator(firstObjectSpawnPosition, 0);
                 break;
             default:
                 Debug.LogError("No OnRoad generator found");

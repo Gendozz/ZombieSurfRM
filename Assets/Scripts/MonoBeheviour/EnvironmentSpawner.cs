@@ -20,6 +20,10 @@ public class EnvironmentSpawner : Spawner
     public override void AddObject()
     {
         Vector3 newPosition = lastSpawnedObject.GetComponent<ReplacableObject>().endPosition.position;
+        if(newPosition == null)
+        {
+            Debug.LogError($"Spawner {gameObject.name} No end position {lastSpawnedObject.name}");
+        }
         lastSpawnedObject = pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), newPosition);        
     }
 }

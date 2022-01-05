@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eba3be763e7564642be847fa9f166551, type: 3}
-  m_Name: PoolTag_Obstacle
+  m_Name: PoolTag_Cloud
   m_EditorClassIdentifier: 
-  Description: Obstacle Red Box
-  value: ObstacleRedBox
+  Description: Clouds tag
+  value: Cloud

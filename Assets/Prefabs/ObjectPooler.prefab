@@ -58,7 +58,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   pools:
-  - poolTag: {fileID: 11400000, guid: 843c6422bda4e37409aacfe2c3449003, type: 2}
+  - itemName: Platform
+    poolTag: {fileID: 11400000, guid: 843c6422bda4e37409aacfe2c3449003, type: 2}
     prefabs:
     - {fileID: 4939243902716709010, guid: 00d20d2a1ed3152488afa7b4181dbb09, type: 3}
     - {fileID: 4939243902716709010, guid: 70351edf841d64149ba6376b0a22a148, type: 3}
@@ -69,7 +70,8 @@ MonoBehaviour:
     - {fileID: 4939243902716709010, guid: 248419b4045a5574ebf17f6b4154116b, type: 3}
     size: 62
     container: {fileID: 0}
-  - poolTag: {fileID: 11400000, guid: dccf7f11c0d8ce44da018a0403bd34a7, type: 2}
+  - itemName: RightSideBuilding
+    poolTag: {fileID: 11400000, guid: dccf7f11c0d8ce44da018a0403bd34a7, type: 2}
     prefabs:
     - {fileID: 3622122332966440245, guid: 1b60b51087a65864a8991ea62a47dc64, type: 3}
     - {fileID: 3622122332966440245, guid: 09c4da4c3c4564048a3ad2f3b9a20b52, type: 3}
@@ -89,7 +91,8 @@ MonoBehaviour:
     - {fileID: 3622122332966440245, guid: 39656958e8edb064b8bd4fcf49e49a81, type: 3}
     size: 32
     container: {fileID: 0}
-  - poolTag: {fileID: 11400000, guid: da7ea8c33bcce9a42a8d050f59d93d54, type: 2}
+  - itemName: LeftSideBuilding
+    poolTag: {fileID: 11400000, guid: da7ea8c33bcce9a42a8d050f59d93d54, type: 2}
     prefabs:
     - {fileID: 3622122332966440245, guid: 3ceddbc90bb29bb48a118f26465bdb36, type: 3}
     - {fileID: 3622122332966440245, guid: 0690a38bc672e9c48944e623ea68cc1d, type: 3}
@@ -109,9 +112,62 @@ MonoBehaviour:
     - {fileID: 3622122332966440245, guid: 8f1b2d813f55bf945883e36c09b853bf, type: 3}
     size: 32
     container: {fileID: 0}
-  - poolTag: {fileID: 11400000, guid: 1bc16621d4eb88e439592b76947e630a, type: 2}
+  - itemName: Obstacle
+    poolTag: {fileID: 11400000, guid: 1bc16621d4eb88e439592b76947e630a, type: 2}
     prefabs:
-    - {fileID: 478190764966800203, guid: fc8ece3020386eb4a993f8e4bb107f04, type: 3}
-    - {fileID: 478190764966800203, guid: f2f44c706dfe18548981be584e92d81e, type: 3}
+    - {fileID: 3999585414253229346, guid: a2bb7cd00feb0f648ab566a3dc9dbbb1, type: 3}
+    - {fileID: 71115414897325392, guid: 1759a1f1aed69924bb4b16917b0f7945, type: 3}
+    - {fileID: 3942487319907624489, guid: 513329126e208ba40b1ea42993486d88, type: 3}
+    - {fileID: 5709401330269524919, guid: b8b72efd6be1cc54aa78a5afeb37428e, type: 3}
+    - {fileID: 3089342205414198851, guid: 8704d16f699f6274492bfb54456b9bff, type: 3}
+    - {fileID: 1147161686536955295, guid: 199deae9e8299a8489f3d92f361876f0, type: 3}
+    - {fileID: 3993817997937953585, guid: b912dfa083ad1ad41a53390c0a949969, type: 3}
     size: 50
+    container: {fileID: 0}
+  - itemName: BothSidesStoneBlock
+    poolTag: {fileID: 11400000, guid: b71254f08f161a54bac3362627b70e99, type: 2}
+    prefabs:
+    - {fileID: 8549273263815605114, guid: 97600136126282741bc748a95022a9b8, type: 3}
+    - {fileID: 8549273263815605114, guid: da8275076c1ac784e8521ae0d0c0b4c8, type: 3}
+    - {fileID: 8549273263815605114, guid: 362ad54acc78f58408435b1df7fd1cf6, type: 3}
+    - {fileID: 8549273263815605114, guid: 800220088badf6a4eba2aeeb232115d1, type: 3}
+    size: 50
+    container: {fileID: 0}
+  - itemName: RightSideDecorations
+    poolTag: {fileID: 11400000, guid: 5db80b768a3dc0f46b14e2ee9d627c61, type: 2}
+    prefabs:
+    - {fileID: 699051972965334388, guid: 5b4b9669b148ea54aab1d302df03b1bd, type: 3}
+    - {fileID: 5042281576310086434, guid: 928e4385fb60cfa469a5857d99998c91, type: 3}
+    - {fileID: 1939782671422195335, guid: fdc80ef43d1a81a44b1e70644c5d7eb5, type: 3}
+    - {fileID: 4104883732854060538, guid: 4c0f4509fc87b204dbc5954b8c03162d, type: 3}
+    - {fileID: 4478328742851964960, guid: 4c0036e127406374d8bc50d9198cda4f, type: 3}
+    - {fileID: 2357593912003642992, guid: 734f8478fa2409147b69364932372bd2, type: 3}
+    - {fileID: 6022744628716398243, guid: 944a9b8b57e66534e9c5b1bb65de88b4, type: 3}
+    - {fileID: 5721628383151919757, guid: 517f6bfacc6d7394787023218774a9af, type: 3}
+    - {fileID: 2962065999953403726, guid: a6473e9800609b24fb72f9373bcee083, type: 3}
+    - {fileID: 8898412866603766035, guid: 3e28206176d216342a534f483362ba51, type: 3}
+    - {fileID: 2841827145404497979, guid: 21ab4e7ac6ebd0a44912eec37cb1809f, type: 3}
+    size: 50
+    container: {fileID: 0}
+  - itemName: LeftSideDecorations
+    poolTag: {fileID: 11400000, guid: 1a0c967056ce33a4bbcced7123feaa47, type: 2}
+    prefabs:
+    - {fileID: 699051972965334388, guid: 90d0d7cc403460e4da2309e86f77405f, type: 3}
+    - {fileID: 5042281576310086434, guid: 98c0a761caa4b0d449a4d707271e1223, type: 3}
+    - {fileID: 1939782671422195335, guid: edcc1da2f02e96249997130f92c91831, type: 3}
+    - {fileID: 4104883732854060538, guid: e501b3036e9543040870926feadf95f1, type: 3}
+    - {fileID: 4478328742851964960, guid: e3da304481ce0b747b72d861dfca8e09, type: 3}
+    - {fileID: 2357593912003642992, guid: 97aeaffe056e41e488d26617c8a1a0e1, type: 3}
+    - {fileID: 6022744628716398243, guid: b15f930f87bc3c94ea9bfc1b69168f12, type: 3}
+    - {fileID: 5721628383151919757, guid: ef73fa5b31c780b45a8f9847d697d299, type: 3}
+    - {fileID: 2962065999953403726, guid: c99de98d706ac5d419868d3a60bee882, type: 3}
+    - {fileID: 8898412866603766035, guid: 7b70d6d209d5dcd4d8ad3db81f822202, type: 3}
+    - {fileID: 2841827145404497979, guid: df6972e043c04d44da092e5ab60d1f6f, type: 3}
+    size: 50
+    container: {fileID: 0}
+  - itemName: Clouds
+    poolTag: {fileID: 11400000, guid: 89a1c7faae8d0e8498d718d40f76c129, type: 2}
+    prefabs:
+    - {fileID: 7449233294798164555, guid: cb214750464cfe24380bdbeb4938e80f, type: 3}
+    size: 7
     container: {fileID: 0}

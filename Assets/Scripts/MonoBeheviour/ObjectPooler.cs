@@ -127,4 +127,13 @@ public class ObjectPooler : MonoBehaviour
         }
         return poolDictionary[listTagToPeek].Peek();
     }
+
+    private void OnValidate()
+    {
+        foreach (Pool pool in pools)
+        {
+            string name = pool.poolTag.GetValue();
+            pool.itemName = string.IsNullOrEmpty(name) ? "Empty" : name;
+        }
+    }
 }
