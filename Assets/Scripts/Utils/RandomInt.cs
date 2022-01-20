@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class RandomUInt
+public static class RandomInt
 {
     public static int GetRandomInt(int topCap)
     {
