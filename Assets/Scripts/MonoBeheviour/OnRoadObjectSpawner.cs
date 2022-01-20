@@ -15,7 +15,7 @@ public class OnRoadObjectSpawner : Spawner
 
     [Header("Generator type based on:"), Tooltip("MAP - 3 lanes, based on back cut\n" +
         "DELAY - 3 lanes, random lane, random distance\n" +
-        "LINEAR - 1 lane, for decorartions")]
+        "LINEAR - 1 lane, for decorations")]
     public generatorType type;
 
     public enum generatorType
