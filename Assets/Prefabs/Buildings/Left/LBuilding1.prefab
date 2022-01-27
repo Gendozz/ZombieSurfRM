@@ -106,7 +106,7 @@ BoxCollider:
   m_GameObject: {fileID: 3622122332966440245}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 6, y: 6, z: 7}
   m_Center: {x: 0, y: 3, z: 0}
@@ -198,6 +198,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 64072865163822848, guid: 58fcef91f30c8c14b8ebb0165c76c637,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64834106649811786, guid: 58fcef91f30c8c14b8ebb0165c76c637,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58fcef91f30c8c14b8ebb0165c76c637, type: 3}
 --- !u!4 &461731190708798594 stripped
@@ -265,6 +275,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 64092429318274838, guid: 00e3039b1aaf0ee4abe6529e9dfd71bc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64567649097441088, guid: 00e3039b1aaf0ee4abe6529e9dfd71bc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64894250033366884, guid: 00e3039b1aaf0ee4abe6529e9dfd71bc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00e3039b1aaf0ee4abe6529e9dfd71bc, type: 3}
 --- !u!4 &3673744416397915125 stripped
@@ -330,6 +355,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 489602, guid: 8c4ffe1cdf6340143be5ddb96c2c0c5b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64355570363408720, guid: 8c4ffe1cdf6340143be5ddb96c2c0c5b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64942426861371826, guid: 8c4ffe1cdf6340143be5ddb96c2c0c5b,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
