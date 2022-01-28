@@ -9,13 +9,13 @@ public class PlayerMovement : MonoBehaviour
     private float laneToLaneDistance = 3f;
 
     [SerializeField]
-    private float currentGravity = 20f;
+    private float currentGravity = 60f;
 
     [SerializeField]
-    private readonly float normalGravity = 20f;
-    
+    private float defaultGravity = 60f;
+
     [SerializeField]
-    private readonly float fallingGravity = 60f;
+    private float jumpGravity = 20f;
 
     [SerializeField]
     private float jumpForce = 8f;
@@ -25,60 +25,79 @@ public class PlayerMovement : MonoBehaviour
 
     private int maxLanesFromCenter = 1;
 
+    private float[] xPositions;
+
     // Movements
 
     private float horizontalInput;
-    private float verticalInput;
 
     private Vector3 startPosition;
-    private Vector3 endPosition;
 
-    [SerializeField]
     private int currentLaneNumber = 0;
 
-    private float currentSideDirection;
-
     private Vector3 currentMovement = Vector3.zero;
+
+    private Quaternion defaultRotation;
+
+    [SerializeField]
+    private float deflectionAngle;
 
     // Flags
 
     private bool isChangingLane = false;
 
-
     private CharacterController charController;
 
+    // Animation
 
+    [SerializeField]
+    private Animator animator;
+
+    [SerializeField]
+    private Transform playerModelTransform;
+
+    // Other
+
+    Coroutine changeLaneRoutine = null;
+
+    Coroutine jumpRoutine = null;
+
+    Coroutine slideRoutine = null;
 
 
     private void Start()
     {
         charController = GetComponent<CharacterController>();
-        
-        // Push character controller to floor
-        //currentMovement.y = -1f;
+
+        defaultRotation = playerModelTransform.rotation;
+
+        xPositions = new float[] { -laneToLaneDistance, 0, laneToLaneDistance };
+
+        RuntimeAnimatorController RTAController = animator.runtimeAnimatorController;
+
+        for (int clipNumber = 0; clipNumber < RTAController.animationClips.Length; clipNumber++)
+        {
+            if (RTAController.animationClips[clipNumber].name.Equals("MoveRight"))
+            {
+                changeLaneDuration = RTAController.animationClips[clipNumber].length;
+            }
+        }
     }
 
     private void Update()
     {
         HandleInput();
         Move();
-
-    }
-
-    private void Move()
-    {
-        currentMovement.y -= (currentGravity * Time.deltaTime);
-        charController.Move(currentMovement * Time.deltaTime);
     }
 
     private void HandleInput()
     {
         horizontalInput = 0f;
-        if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             horizontalInput = -1f;
         }
-        if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             horizontalInput = 1f;
         }
@@ -89,76 +108,124 @@ public class PlayerMovement : MonoBehaviour
 
             if (isLaneInDirection)
             {
-                StartCoroutine(ChangeLane(horizontalInput));                
+                if (changeLaneRoutine != null)
+                {
+                    StopCoroutine(changeLaneRoutine);
+                }
+                changeLaneRoutine = StartCoroutine(ChangeLane((int)horizontalInput));
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) ||Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
         {
             if (charController.isGrounded)
             {
-                StartCoroutine(Jump());   
-            }           
+                jumpRoutine = StartCoroutine(Jump());
+            }
         }
-        
-        if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            StartCoroutine(Slide());
+            slideRoutine = StartCoroutine(Slide());
         }
     }
 
-
-    private IEnumerator ChangeLane(float sideDirection)
+    private void Move()
     {
-        //for (float waitTime = 0.2f; waitTime > 0.0 && isChangingLane; waitTime -= Time.fixedDeltaTime)
-        //    yield return null;
+        currentMovement.y -= (currentGravity * Time.deltaTime);
+        charController.Move(currentMovement * Time.deltaTime);
+    }
 
+    private IEnumerator ChangeLane(int sideDirection)
+    {
+        // Position
+        startPosition = transform.position;
+        currentLaneNumber += sideDirection;
+        float newXPosition = xPositions[currentLaneNumber + 1];
+        float currentXPosition;
 
+        // Rotation
+        Quaternion newRotation = Quaternion.Euler(
+            playerModelTransform.rotation.x,
+            playerModelTransform.rotation.y + (deflectionAngle * sideDirection),
+            playerModelTransform.rotation.z);
 
-        if (!isChangingLane)
+        // Common
+        float elapsedTime = 0f;
+        float fraction = 0f;
+        animator.SetInteger(Constants.AnimationParameters.SIDEMOVE_INT, sideDirection);
+
+        while (elapsedTime < changeLaneDuration)
         {
-            isChangingLane = true;
-            currentLaneNumber += (int)sideDirection;
+            //Positon
+            currentXPosition = Mathf.Lerp(startPosition.x, newXPosition, fraction);
+            transform.position = new Vector3(currentXPosition, transform.position.y, transform.position.z);
+            elapsedTime += Time.deltaTime;
 
-            startPosition = transform.position;
-
-            float newXPosition = transform.position.x + (sideDirection * laneToLaneDistance);
-            float elapsedTime = 0;
-            float currentXPosition;
-
-            while (elapsedTime < changeLaneDuration)
+            // Rotation
+            if (fraction <= 0.5f)
             {
-                currentXPosition = Mathf.Lerp(startPosition.x, newXPosition, (elapsedTime / changeLaneDuration));
-                transform.position = new Vector3(currentXPosition, transform.position.y, transform.position.z);
-                elapsedTime += Time.deltaTime;
-                yield return null;
+                playerModelTransform.rotation = Quaternion.Slerp(defaultRotation, newRotation, fraction);
+            }
+            else
+            {
+                playerModelTransform.rotation = Quaternion.Slerp(newRotation, defaultRotation, fraction);
             }
 
-            transform.position = new Vector3(newXPosition, transform.position.y, transform.position.z);
+            // Common
+            fraction = elapsedTime / changeLaneDuration;
 
-            isChangingLane = false;
+
+            yield return null;
         }
+        animator.SetInteger(Constants.AnimationParameters.SIDEMOVE_INT, 0);
+        animator.SetTrigger(Constants.AnimationParameters.LANECHANGED_TRIG);
+
+        transform.position = new Vector3(newXPosition, transform.position.y, transform.position.z);
+        playerModelTransform.rotation = defaultRotation;
     }
 
 
-
-    IEnumerator Jump()
-    {            
-        currentMovement.y = jumpForce;
-        //print($"Jump coroutine started. curentMovement => {currentMovement} ");
-
-        do
+    private IEnumerator Jump()
+    {
+        if(slideRoutine != null)
         {
-            //if(gameObj)
+            StopCoroutine(slideRoutine);
+        }
+        currentGravity = jumpGravity;
+        currentMovement.y = jumpForce;
+        animator.SetTrigger(Constants.AnimationParameters.JUMP_TRIG);
 
-            yield return new WaitForFixedUpdate();
-        } while (!charController.isGrounded);
-        //print($"Jump coroutine ended. curentMovement => {currentMovement} ");
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
+
+        float previousY = 0;
+        float currentY = 0;
+        while (!charController.isGrounded)
+        {
+            previousY = currentY;
+            currentY = transform.position.y;
+            if (currentY < previousY)
+            {
+                currentGravity = defaultGravity;
+            }
+
+            yield return null;
+        }
+        animator.SetTrigger(Constants.AnimationParameters.LANDED_TRIG);
     }
 
     IEnumerator Slide()
     {
+        if(jumpRoutine != null)
+        {
+            StopCoroutine(jumpRoutine);
+        }
+        currentGravity = defaultGravity;
+
+        animator.SetTrigger(Constants.AnimationParameters.SLIDE_TRIG);
+
+        
+
         yield return null;
     }
 }

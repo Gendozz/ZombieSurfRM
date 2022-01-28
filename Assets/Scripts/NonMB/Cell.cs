@@ -8,7 +8,7 @@ public struct Cell
 
     public Cell(float xPos, float zPos, bool isEmpty = false) 
     {
-        CenterPosition = new Vector3(xPos, 2, zPos);
+        CenterPosition = new Vector3(xPos, 0, zPos);
         this.isEmpty = isEmpty;
     }
 

@@ -96,10 +96,10 @@ public class ObjectPooler : MonoBehaviour
         
         objectToSpawn.transform.position = position;
 
-        if (tag.Equals("ObstacleRedBox"))
-        {        
-            objectToSpawn.transform.localPosition = objectToSpawn.transform.position;
-        }
+        //if (tag.Equals("ObstacleRedBox"))
+        //{        
+        //    objectToSpawn.transform.localPosition = objectToSpawn.transform.position;
+        //}
         objectToSpawn.SetActive(true);
 
         // Call OnObjectSpawn() on current getted from pool object

@@ -10,8 +10,9 @@ public class OnRoadObjectSpawner : Spawner
     private int mapWidth = 3;
 
     private int mapLength = 30;
-
-    private float difficulty = 0.5f;
+    
+    [SerializeField]
+    private float difficulty = 1f;
 
     [Header("Generator type based on:"), Tooltip("MAP - 3 lanes, based on back cut\n" +
         "DELAY - 3 lanes, random lane, random distance\n" +
@@ -49,6 +50,7 @@ public class OnRoadObjectSpawner : Spawner
     public override void AddObject()
     {
         Vector3 positionToSpawn = generator.GetPositionToSpawn();
+
         pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), positionToSpawn);
     }
 }

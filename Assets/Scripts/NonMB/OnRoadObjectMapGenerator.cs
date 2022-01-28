@@ -37,6 +37,7 @@ public class OnRoadObjectMapGenerator : IEnumerator<Cell>, IObjectGenerator
         this.mapGridRowsAmount = mapGridRowsAmount;
         this.difficulty = difficulty;
         this.firstObjectSpawnPosition = firstObjectSpawnPosition;
+        Debug.Log("From Ctor => " + firstObjectSpawnPosition);
         MakeReadyToUseObjectMap();
     }
 
@@ -70,7 +71,7 @@ public class OnRoadObjectMapGenerator : IEnumerator<Cell>, IObjectGenerator
                 {
                     currentCell.isEmpty = Random.value > difficulty;     // thin depending on the complexity
                 }
-                currentMapGrid.cells[laneNumber, rowNumber] = currentCell;                
+                currentMapGrid.cells[laneNumber, rowNumber] = currentCell;
             }
         }
         currentMapGridStartZ = currentMapGrid.cells[0, mapGridRowsAmount - 1].CenterPosition.z + cellLenght;

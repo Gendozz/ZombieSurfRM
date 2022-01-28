@@ -193,9 +193,45 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1856852342}
     m_Modifications:
+    - target: {fileID: 101740, guid: a62e0ab0f0837ca48adf4710699a7e91, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 119318, guid: a62e0ab0f0837ca48adf4710699a7e91, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 119380, guid: a62e0ab0f0837ca48adf4710699a7e91, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 121250, guid: a62e0ab0f0837ca48adf4710699a7e91, type: 3}
       propertyPath: m_Name
       value: PlayerModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 125398, guid: a62e0ab0f0837ca48adf4710699a7e91, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 140204, guid: a62e0ab0f0837ca48adf4710699a7e91, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 157480, guid: a62e0ab0f0837ca48adf4710699a7e91, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 170520, guid: a62e0ab0f0837ca48adf4710699a7e91, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 184586, guid: a62e0ab0f0837ca48adf4710699a7e91, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196344, guid: a62e0ab0f0837ca48adf4710699a7e91, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 439796, guid: a62e0ab0f0837ca48adf4710699a7e91, type: 3}
       propertyPath: m_LocalPosition.x
@@ -241,8 +277,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9575318, guid: a62e0ab0f0837ca48adf4710699a7e91, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5432f592c8b97004796491f79417ea4b, type: 2}
+    - target: {fileID: 9575318, guid: a62e0ab0f0837ca48adf4710699a7e91, type: 3}
+      propertyPath: m_UpdateMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a62e0ab0f0837ca48adf4710699a7e91, type: 3}
+--- !u!95 &298298521 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9575318, guid: a62e0ab0f0837ca48adf4710699a7e91,
+    type: 3}
+  m_PrefabInstance: {fileID: 210664774}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &329692280 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 439796, guid: a62e0ab0f0837ca48adf4710699a7e91,
@@ -640,10 +690,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69683ea5c4e8b9840a5144d49ad7c9a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGravity: 9
-  jumpForce: 10
+  currentGravity: 20
+  defaultGravity: 20
+  jumpGravity: 9
+  jumpForce: 6
   changeLaneDuration: 0.3
-  currentLaneNumber: 0
+  deflectionAngle: 90
+  animator: {fileID: 298298521}
+  playerModelTransform: {fileID: 329692280}
 --- !u!143 &1856852341
 CharacterController:
   m_ObjectHideFlags: 0

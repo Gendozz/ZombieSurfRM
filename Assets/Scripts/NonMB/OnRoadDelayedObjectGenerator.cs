@@ -9,7 +9,7 @@ public class OnRoadDelayedObjectGenerator : IObjectGenerator
     private float currentZ;
     private float[] laneNumber = new float[3];
     private float minGenerationDistance = 2f;
-    private float maxGenerationDistance = 20f;
+    private float maxGenerationDistance = 10f;
 
 
     public OnRoadDelayedObjectGenerator(Vector3 firstObjectSpawnPosition, float betweenLaneDistance)
