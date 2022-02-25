@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    [field:SerializeField]
-    public float Lenght { get; private set; }
+    [SerializeField]
+    private ObstacleType obstacleType;
 
-    // Start is called before the first frame update
-    void Start()
+    public enum ObstacleType
     {
-        
+        LOW,
+        HIGH,
+        HIGH_SOLID
     }
 
-    // Update is called once per frame
-    void Update()
+    public ObstacleType GetType()
     {
-        
+        return obstacleType;
     }
 }

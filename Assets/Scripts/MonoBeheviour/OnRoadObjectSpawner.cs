@@ -12,7 +12,7 @@ public class OnRoadObjectSpawner : Spawner
     private int mapLength = 30;
     
     [SerializeField]
-    private float difficulty = 1f;
+    private FloatReference difficulty;
 
     [Header("Generator type based on:"), Tooltip("MAP - 3 lanes, based on back cut\n" +
         "DELAY - 3 lanes, random lane, random distance\n" +
@@ -23,7 +23,8 @@ public class OnRoadObjectSpawner : Spawner
     {
         MAP,
         DELAY,
-        LINEAR
+        INLINE,
+        COIN
     }
 
     public override void StartSpawn()
@@ -34,10 +35,15 @@ public class OnRoadObjectSpawner : Spawner
                 generator = new OnRoadObjectMapGenerator(mapWidth, mapLength, difficulty, firstObjectSpawnPosition);
                 break;
             case generatorType.DELAY:
-                generator = new OnRoadDelayedObjectGenerator(firstObjectSpawnPosition, mapWidth);
+                generator = new OnRoadDelayedObjectGenerator(mapWidth, difficulty, firstObjectSpawnPosition);
                 break;
-            case generatorType.LINEAR:
-                generator = new OnRoadDelayedObjectGenerator(firstObjectSpawnPosition, 0);
+            case generatorType.INLINE:
+                FloatReference inlineDif = new FloatReference();
+                inlineDif.value = 0.5f;
+                generator = new OnRoadDelayedObjectGenerator(0, inlineDif, firstObjectSpawnPosition);
+                break;
+            case generatorType.COIN:
+                generator = new CoinPathGenerator(mapWidth, firstObjectSpawnPosition);
                 break;
             default:
                 Debug.LogError("No OnRoad generator found");
@@ -51,7 +57,7 @@ public class OnRoadObjectSpawner : Spawner
     {
         Vector3 positionToSpawn = generator.GetPositionToSpawn();
 
-        pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), positionToSpawn);
+        pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), positionToSpawn, true);
     }
 }
 

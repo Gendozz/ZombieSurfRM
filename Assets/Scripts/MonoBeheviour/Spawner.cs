@@ -9,7 +9,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField]
-    protected int objectsAmountToInit = 10;  //Changed in inspector
+    protected int objectsAmountToInit = 10;  
 
     public StringReference poolTagToSpawnFrom;
 
@@ -46,8 +46,8 @@ public class Spawner : MonoBehaviour
 
     public virtual void AddObject() { }
 
-    protected virtual void ReplaceObjectOutOfSee()             
-    {
-        AddObject();
-    }
+    //protected virtual void ReplaceObjectOutOfSee()             
+    //{
+    //    AddObject();
+    //}
 }

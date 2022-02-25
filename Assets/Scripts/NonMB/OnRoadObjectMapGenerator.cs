@@ -16,7 +16,7 @@ public class OnRoadObjectMapGenerator : IEnumerator<Cell>, IObjectGenerator
 
     private float currentMapGridStartZ = 0;
 
-    private float difficulty;
+    private FloatReference difficulty;
     
     private IEnumerator<Cell> mapEnumerator;
 
@@ -31,13 +31,12 @@ public class OnRoadObjectMapGenerator : IEnumerator<Cell>, IObjectGenerator
     object IEnumerator.Current => throw new System.NotImplementedException();
 
     #region OnStartSpawnMethods
-    public OnRoadObjectMapGenerator(int mapGridLanesAmount, int mapGridRowsAmount, float difficulty, Vector3 firstObjectSpawnPosition)
+    public OnRoadObjectMapGenerator(int mapGridLanesAmount, int mapGridRowsAmount, FloatReference difficulty, Vector3 firstObjectSpawnPosition)
     {
         this.mapGridLanesAmount = mapGridLanesAmount;
         this.mapGridRowsAmount = mapGridRowsAmount;
         this.difficulty = difficulty;
         this.firstObjectSpawnPosition = firstObjectSpawnPosition;
-        Debug.Log("From Ctor => " + firstObjectSpawnPosition);
         MakeReadyToUseObjectMap();
     }
 
@@ -63,13 +62,13 @@ public class OnRoadObjectMapGenerator : IEnumerator<Cell>, IObjectGenerator
 
             for (int rowNumber = 0; rowNumber < mapGridRowsAmount; rowNumber++)         
             {
-                float zPos = currentMapGridStartZ + (rowNumber * cellLenght);
+                float zPos = currentMapGridStartZ + (rowNumber * cellLenght) + firstObjectSpawnPosition.z;
 
                 currentCell = new Cell(xPos, zPos);
 
                 if (currentMapGridStartZ == 0 || (currentMapGridStartZ != 0 && rowNumber != 0))  // should not be triggered when CellFrame is regenerated so as not to block the path
                 {
-                    currentCell.isEmpty = Random.value > difficulty;     // thin depending on the complexity
+                    currentCell.isEmpty = Random.value > difficulty.GetValue();     // thin depending on the difficulty
                 }
                 currentMapGrid.cells[laneNumber, rowNumber] = currentCell;
             }

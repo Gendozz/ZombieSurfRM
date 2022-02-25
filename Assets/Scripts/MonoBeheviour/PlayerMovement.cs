@@ -1,12 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
     // Settings
-    private float laneToLaneDistance = 3f;
+
+    private float laneToLaneDistance = 3f;     
 
     [SerializeField]
     private float currentGravity = 60f;
@@ -23,11 +24,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float changeLaneDuration = 0.2f;
 
+    private float slideAnimationDuration;
+
     private int maxLanesFromCenter = 1;
 
     private float[] xPositions;
 
-    // Movements
+    private readonly Vector3 defaultCharControllerCenter = new Vector3(0f, 1f, 0f);
+
+    private readonly float defaultCharControllerHieght = 2f;
+    
+    private readonly Vector3 slidingCharControllerCenter = new Vector3(0f, 0.5f, 0f);
+
+    private readonly float slidingCharControllerHeight = 1f;
+
+
+    // Movements and rotation
 
     private float horizontalInput;
 
@@ -42,11 +54,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float deflectionAngle;
 
-    // Flags
-
-    private bool isChangingLane = false;
-
-    private CharacterController charController;
+    private int previousSideDirection = 0;
 
     // Animation
 
@@ -58,11 +66,17 @@ public class PlayerMovement : MonoBehaviour
 
     // Other
 
-    Coroutine changeLaneRoutine = null;
+    private Coroutine changeLaneRoutine = null;
 
-    Coroutine jumpRoutine = null;
+    private Coroutine jumpRoutine = null;
 
-    Coroutine slideRoutine = null;
+    private Coroutine slideRoutine = null;
+
+    private Coroutine setCapsuleToDefaultRoutine = null;
+    
+    private CharacterController charController;
+
+    private bool isAlive = true;
 
 
     private void Start()
@@ -77,9 +91,15 @@ public class PlayerMovement : MonoBehaviour
 
         for (int clipNumber = 0; clipNumber < RTAController.animationClips.Length; clipNumber++)
         {
-            if (RTAController.animationClips[clipNumber].name.Equals("MoveRight"))
+            string animationName = RTAController.animationClips[clipNumber].name;
+
+            if (animationName.Equals("MoveRight"))
             {
                 changeLaneDuration = RTAController.animationClips[clipNumber].length;
+            }
+            if (animationName.Equals("Slide"))
+            {
+                slideAnimationDuration = RTAController.animationClips[clipNumber].length;
             }
         }
     }
@@ -92,6 +112,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleInput()
     {
+        if (!isAlive)
+        {
+            return;
+        }
+
         horizontalInput = 0f;
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
@@ -113,7 +138,9 @@ public class PlayerMovement : MonoBehaviour
                     StopCoroutine(changeLaneRoutine);
                 }
                 changeLaneRoutine = StartCoroutine(ChangeLane((int)horizontalInput));
+                previousSideDirection = (int)horizontalInput;
             }
+            return;
         }
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
@@ -122,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 jumpRoutine = StartCoroutine(Jump());
             }
+            return;
         }
 
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
@@ -185,12 +213,12 @@ public class PlayerMovement : MonoBehaviour
         playerModelTransform.rotation = defaultRotation;
     }
 
-
     private IEnumerator Jump()
     {
         if(slideRoutine != null)
         {
             StopCoroutine(slideRoutine);
+            setCapsuleToDefaultRoutine = StartCoroutine(SetCapsuleColliderToDefaults(0));
         }
         currentGravity = jumpGravity;
         currentMovement.y = jumpForce;
@@ -214,18 +242,49 @@ public class PlayerMovement : MonoBehaviour
         animator.SetTrigger(Constants.AnimationParameters.LANDED_TRIG);
     }
 
-    IEnumerator Slide()
+    private IEnumerator Slide()
     {
         if(jumpRoutine != null)
         {
             StopCoroutine(jumpRoutine);
         }
+
+        if(setCapsuleToDefaultRoutine != null)
+        {
+            StopCoroutine(setCapsuleToDefaultRoutine);
+        }
+
         currentGravity = defaultGravity;
+
+        charController.height = slidingCharControllerHeight;
+        charController.center = slidingCharControllerCenter;
 
         animator.SetTrigger(Constants.AnimationParameters.SLIDE_TRIG);
 
-        
+        setCapsuleToDefaultRoutine = StartCoroutine(SetCapsuleColliderToDefaults(slideAnimationDuration));
 
         yield return null;
+    }
+
+    public void KillPlayer()
+    {
+        StopAllCoroutines();
+        isAlive = false;
+        animator.SetTrigger(Constants.AnimationParameters.DEATH_TRIG);
+    }
+
+    private IEnumerator SetCapsuleColliderToDefaults(float setDelay)
+    {
+        yield return new WaitForSeconds(setDelay);
+
+        charController.height = defaultCharControllerHieght;
+        charController.center = defaultCharControllerCenter;
+    }
+
+    public void HandleSideHit()
+    {
+        animator.SetBool(Constants.AnimationParameters.SIDEHIT_TRIG, true);
+        StopCoroutine(changeLaneRoutine);
+        changeLaneRoutine = StartCoroutine(ChangeLane(previousSideDirection * -1));
     }
 }

@@ -42,7 +42,7 @@ public class ObjectPooler : MonoBehaviour
     /// List of pools. Fill in inspector
     /// </summary>
     public List<Pool> pools;
-    
+
     // Словарь пулов
     private Dictionary<string, Queue<GameObject>> poolDictionary;
 
@@ -55,24 +55,24 @@ public class ObjectPooler : MonoBehaviour
 
         // Create container for each pool, fill it with perfabs ...
         foreach (Pool pool in pools)
-        {            
+        {
             pool.container = new GameObject("ContainerForPooled_" + pool.poolTag.GetValue() + "s").transform;
 
             Queue<GameObject> objectPool = new Queue<GameObject>();
 
             for (int i = 0; i < pool.size; i++)
             {
-                GameObject obj = Instantiate(pool.prefabs[Random.Range(0, pool.prefabs.Length)], pool.container); 
+                GameObject obj = Instantiate(pool.prefabs[Random.Range(0, pool.prefabs.Length)], pool.container);
                 obj.SetActive(false);
-                objectPool.Enqueue(obj);                
+                objectPool.Enqueue(obj);
             }
             // ... and put it in dictionary with key == poolTag
-         
+
             poolDictionary.Add(pool.poolTag.GetValue(), objectPool);
-            Debug.Log($"Пул {pool.poolTag.GetValue()} готов");                      // Debug
-        }  
-        Debug.Log("Все пулы готовы");                                               // Debug
-        poolIsReady?.Invoke();        
+            //Debug.Log($"Пул {pool.poolTag.GetValue()} готов");                      // Debug
+        }
+        //Debug.Log("Все пулы готовы");                                               // Debug
+        poolIsReady?.Invoke();
     }
 
     /// <summary>
@@ -81,7 +81,7 @@ public class ObjectPooler : MonoBehaviour
     /// <param name="tag">Pool tag in which the object is taken</param>
     /// <param name="position">Position at which object will be placed</param>
     /// <returns></returns>
-    public GameObject SpawnFromPool(string tag, Vector3 position)
+    public GameObject SpawnFromPool(string tag, Vector3 position, bool convertToLocalPosition)
     {
         // If there is no dictionary with given tag - do nothing
         if (!poolDictionary.ContainsKey(tag))
@@ -93,13 +93,13 @@ public class ObjectPooler : MonoBehaviour
         // Get object from pool, set it's 'active' to true, place object in the scene and put it back to the pool
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
-        
+
         objectToSpawn.transform.position = position;
 
-        //if (tag.Equals("ObstacleRedBox"))
-        //{        
-        //    objectToSpawn.transform.localPosition = objectToSpawn.transform.position;
-        //}
+        if (convertToLocalPosition)
+        {
+            objectToSpawn.transform.localPosition = objectToSpawn.transform.position;
+        }
         objectToSpawn.SetActive(true);
 
         // Call OnObjectSpawn() on current getted from pool object
@@ -113,19 +113,6 @@ public class ObjectPooler : MonoBehaviour
         poolDictionary[tag].Enqueue(objectToSpawn);
 
         return objectToSpawn;
-    }
-
-    /// <summary>
-    /// Gives the link to the object, thst will be return from poll next by tag 'listTagToPeek'
-    /// </summary>
-    public GameObject GetObjectToReplace(string listTagToPeek)
-    {
-        if (!poolDictionary.ContainsKey(listTagToPeek))
-        {
-            Debug.LogError($"There's no pool with tag => {listTagToPeek}");
-            return null;
-        }
-        return poolDictionary[listTagToPeek].Peek();
     }
 
     private void OnValidate()

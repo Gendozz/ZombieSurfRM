@@ -48,6 +48,7 @@ MonoBehaviour:
   objectsAmountToInit: 40
   poolTagToSpawnFrom: {fileID: 11400000, guid: 1a0c967056ce33a4bbcced7123feaa47, type: 2}
   firstObjectSpawnPosition: {x: -6, y: 0, z: 0}
+  difficulty: {fileID: 11400000, guid: 3ebaa8e170ff0a64493ff8af9c5bdfbe, type: 2}
   type: 2
 --- !u!114 &6640798128975070711
 MonoBehaviour:

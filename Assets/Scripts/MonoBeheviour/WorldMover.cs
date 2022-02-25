@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -8,7 +7,11 @@ using UnityEngine;
 /// </summary>
 public class WorldMover : MonoBehaviour
 {
-    public FloatReference moveSpeed;
+    [SerializeField]
+    private FloatReference moveSpeed;
+
+    [SerializeField]
+    private FloatReference difficulty;
 
     private List<Transform> objectsToMove = new List<Transform>();
 
@@ -37,8 +40,13 @@ public class WorldMover : MonoBehaviour
 
         foreach (var obj in objectsToMove)
         {
-            obj.transform.position -= Vector3.forward * moveSpeed.value * Time.deltaTime; 
+            obj.transform.position -= Vector3.forward * moveSpeed.GetValue() * (1 + difficulty.GetValue()) * Time.deltaTime; 
         }
+    }
+
+    public void StopMove()
+    {
+        canMove = false;
     }
 
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8151319670637857959}
   - component: {fileID: 8151319670637857952}
   - component: {fileID: -2781880782649218257}
+  - component: {fileID: 1609050659542519959}
   m_Layer: 0
   m_Name: WorldMover
   m_TagString: Untagged
@@ -45,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: {fileID: 11400000, guid: a839805de339289488870fbc95d31ef5, type: 2}
+  difficulty: {fileID: 11400000, guid: 3ebaa8e170ff0a64493ff8af9c5bdfbe, type: 2}
 --- !u!114 &-2781880782649218257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,6 +65,33 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8151319670637857952}
         m_MethodName: PrepareToMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1609050659542519959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8151319670637857953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd77057639af554f81a4efedc862956, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 0fdcfb835cc4a03489b67a8e902b80d3, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8151319670637857952}
+        m_MethodName: StopMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

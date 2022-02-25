@@ -122,6 +122,8 @@ MonoBehaviour:
     - {fileID: 3089342205414198851, guid: 8704d16f699f6274492bfb54456b9bff, type: 3}
     - {fileID: 1147161686536955295, guid: 199deae9e8299a8489f3d92f361876f0, type: 3}
     - {fileID: 3993817997937953585, guid: b912dfa083ad1ad41a53390c0a949969, type: 3}
+    - {fileID: 4265841383333081702, guid: db461a1df335bfb41b75ab4340ab793f, type: 3}
+    - {fileID: 1147161686536955295, guid: 67f7b1db6ae64bd4b8920facc2961492, type: 3}
     size: 70
     container: {fileID: 0}
   - itemName: BothSidesStoneBlock
@@ -170,4 +172,10 @@ MonoBehaviour:
     prefabs:
     - {fileID: 7449233294798164555, guid: cb214750464cfe24380bdbeb4938e80f, type: 3}
     size: 7
+    container: {fileID: 0}
+  - itemName: Coin
+    poolTag: {fileID: 11400000, guid: a12445adf12a24448a8e61a29d16a215, type: 2}
+    prefabs:
+    - {fileID: 4161832380477445121, guid: 670cb8a5711fecd4a8bb30a468a2b69b, type: 3}
+    size: 200
     container: {fileID: 0}

@@ -12,7 +12,7 @@ public class EnvironmentSpawner : Spawner
 
     protected override void Init()
     {
-        lastSpawnedObject = pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), firstObjectSpawnPosition);
+        lastSpawnedObject = pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), firstObjectSpawnPosition, false);
 
         base.Init();
     }
@@ -24,6 +24,6 @@ public class EnvironmentSpawner : Spawner
         {
             Debug.LogError($"Spawner {gameObject.name} No end position {lastSpawnedObject.name}");
         }
-        lastSpawnedObject = pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), newPosition);        
+        lastSpawnedObject = pooler.SpawnFromPool(poolTagToSpawnFrom.GetValue(), newPosition, false);        
     }
 }

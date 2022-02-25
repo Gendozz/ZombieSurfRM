@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7971b72accb33834a858c213f04e0420, type: 3}
+  m_Name: DefaultSettings
+  m_EditorClassIdentifier: 
+  difficulty: {fileID: 11400000, guid: 3ebaa8e170ff0a64493ff8af9c5bdfbe, type: 2}
+  defaultDifficulty: 0.25
+  moveSpeed: {fileID: 11400000, guid: a839805de339289488870fbc95d31ef5, type: 2}
+  defaultMoveSpeed: 5

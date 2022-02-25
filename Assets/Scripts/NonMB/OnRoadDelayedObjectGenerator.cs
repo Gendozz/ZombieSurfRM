@@ -1,44 +1,56 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class OnRoadDelayedObjectGenerator : IObjectGenerator
 {
-    private readonly Vector3 firstObjectSpawnPosition;
+    private float firstX;
+    private float Ypos;
     private readonly float betweenLaneDistance;
     private float currentZ;
-    private float[] laneNumber = new float[3];
+    private float[] xPositions = new float[3];
     private float minGenerationDistance = 2f;
     private float maxGenerationDistance = 10f;
+    private FloatReference difficulty;
+
+    private Queue<float> threeInRow = new Queue<float>(); // added
 
 
-    public OnRoadDelayedObjectGenerator(Vector3 firstObjectSpawnPosition, float betweenLaneDistance)
+    public OnRoadDelayedObjectGenerator(float betweenLaneDistance, FloatReference difficulty, Vector3 firstObjectSpawnPosition)
     {
-        this.firstObjectSpawnPosition = firstObjectSpawnPosition;
+        firstX = firstObjectSpawnPosition.x;
+        currentZ = firstObjectSpawnPosition.z;
+        Ypos = firstObjectSpawnPosition.y;
         this.betweenLaneDistance = betweenLaneDistance;
+        this.difficulty = difficulty;
 
         DefineLanes();
     }
 
     private void DefineLanes()
     {
-        float currentX = firstObjectSpawnPosition.x;
+        float currentX = firstX;
 
-        int counter = 0;
+        int index = 0;
         do
         {
-            laneNumber[counter] = currentX;
+            xPositions[index] = currentX;
             currentX += betweenLaneDistance;
-            counter++;
+            index++;
+            threeInRow.Enqueue(currentX); // added
         }
-        while (counter < 3);
+        while (index < 3);
     }
 
     public Vector3 GetPositionToSpawn()
     {
-        float x = laneNumber[Random.Range(0, 3)];
-        currentZ += Random.Range(minGenerationDistance, maxGenerationDistance);
+        float x = xPositions[Random.Range(0, 3)];
+        float currentMaxGenerationDistance = maxGenerationDistance - difficulty.GetValue();
+        if (currentMaxGenerationDistance < minGenerationDistance)
+        {
+            currentMaxGenerationDistance = minGenerationDistance;
+        }
+        currentZ += Random.Range(minGenerationDistance, currentMaxGenerationDistance);
 
-        return new Vector3(x, firstObjectSpawnPosition.y, currentZ);
+        return new Vector3(x, Ypos, currentZ);
     }
 }
