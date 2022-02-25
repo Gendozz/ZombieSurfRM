@@ -326,8 +326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   usedTransform: {fileID: 5438730237638098277}
   usedRigidbody: {fileID: 7729007470014745860}
-  connectedBody: {fileID: 3028473335706084327}
-  joint: {fileID: 990880403330671408}
+  deathCollder: {fileID: 1881045391156272682}
   force: 2
 --- !u!1001 &1147161685642647110
 PrefabInstance:

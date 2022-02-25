@@ -34,4 +34,5 @@ public abstract class Trap : MonoBehaviour
         usedTransform.rotation = defaultRotation;
         usedTransform.localPosition = defaultPosition;
     }
+
 }

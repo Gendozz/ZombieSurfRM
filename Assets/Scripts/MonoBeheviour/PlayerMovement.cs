@@ -64,6 +64,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Transform playerModelTransform;
 
+    // Ragdoll
+
+    private Collider[] ragdollColliders;
+
+    private Rigidbody[] ragdollRigidbodies;
+
+    [SerializeField]
+    private float deathThrowBackForce = 15f;
+
     // Other
 
     private Coroutine changeLaneRoutine = null;
@@ -102,21 +111,25 @@ public class PlayerMovement : MonoBehaviour
                 slideAnimationDuration = RTAController.animationClips[clipNumber].length;
             }
         }
+
+        // Ragdoll
+
+        CashRagdollComponents();
+        ChangeRagdollActivenessTo(false);
     }
 
     private void Update()
-    {
+    {        
+        if (!isAlive)
+        {
+            return;
+        }
         HandleInput();
         Move();
     }
 
     private void HandleInput()
     {
-        if (!isAlive)
-        {
-            return;
-        }
-
         horizontalInput = 0f;
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
@@ -203,7 +216,6 @@ public class PlayerMovement : MonoBehaviour
             // Common
             fraction = elapsedTime / changeLaneDuration;
 
-
             yield return null;
         }
         animator.SetInteger(Constants.AnimationParameters.SIDEMOVE_INT, 0);
@@ -270,7 +282,12 @@ public class PlayerMovement : MonoBehaviour
     {
         StopAllCoroutines();
         isAlive = false;
-        animator.SetTrigger(Constants.AnimationParameters.DEATH_TRIG);
+        //animator.SetTrigger(Constants.AnimationParameters.DEATH_TRIG);
+
+        // Ragdoll
+        charController.enabled = false;
+        animator.enabled = false;
+        ChangeRagdollActivenessTo(true);
     }
 
     private IEnumerator SetCapsuleColliderToDefaults(float setDelay)
@@ -287,4 +304,28 @@ public class PlayerMovement : MonoBehaviour
         StopCoroutine(changeLaneRoutine);
         changeLaneRoutine = StartCoroutine(ChangeLane(previousSideDirection * -1));
     }
+
+    #region Ragdoll
+
+    private void CashRagdollComponents()
+    {
+        ragdollColliders = playerModelTransform.gameObject.GetComponentsInChildren<Collider>();
+        ragdollRigidbodies = playerModelTransform.gameObject.GetComponentsInChildren<Rigidbody>();
+    }
+
+    private void ChangeRagdollActivenessTo(bool isActive)
+    {
+        foreach (Collider collider in ragdollColliders)
+        {
+            collider.enabled = isActive;
+        }
+
+        foreach (Rigidbody rigidbody in ragdollRigidbodies)
+        {
+            rigidbody.isKinematic = !isActive;
+            rigidbody.useGravity = isActive;
+            rigidbody.AddForce(-Vector3.forward * deathThrowBackForce, ForceMode.Impulse);
+        }
+    }
+    #endregion
 }

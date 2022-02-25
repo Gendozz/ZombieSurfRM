@@ -59,7 +59,15 @@ public class PlayerCollisionHandler : MonoBehaviour
         }
 
         if(otherTag == Constants.Tags.DEATH_TAG)
-        {            
+        {
+            #region To prevent stucking ragdoll in obstacle colliders
+            Collider[] obstacleColliders = other.gameObject.GetComponentsInParent<Collider>();
+            foreach (Collider collider in obstacleColliders)
+            {
+                collider.enabled = false;
+            }
+            #endregion
+
             death.Play();
             OnDeath?.Invoke();
             playerMovement.KillPlayer();
