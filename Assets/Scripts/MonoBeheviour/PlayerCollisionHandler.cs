@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PlayerMovement))]
+[RequireComponent(typeof(Player))]
 public class PlayerCollisionHandler : MonoBehaviour
 {
     public UnityEvent OnCoinCollected;
@@ -19,11 +19,19 @@ public class PlayerCollisionHandler : MonoBehaviour
     [SerializeField]
     private ParticleSystem death;
 
-    private PlayerMovement playerMovement;
+    private Player player;
+
+    // AudioClips
+    [SerializeField]
+    private AudioClip coinTakeSound;
+
+    [SerializeField]
+    private AudioClip hitSound;
+
 
     private void Start()
     {
-        playerMovement = GetComponent<PlayerMovement>();
+        player = GetComponent<Player>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,6 +48,7 @@ public class PlayerCollisionHandler : MonoBehaviour
             coinTake.Play();
             OnCoinCollected?.Invoke();
             other.gameObject.SetActive(false);
+            SoundManager.Instance.Play(coinTakeSound, true);
             return;
         }
 
@@ -54,23 +63,27 @@ public class PlayerCollisionHandler : MonoBehaviour
         {            
             sideHit.Play();
             OnSideHit?.Invoke();
-            playerMovement.HandleSideHit();
+            player.HandleSideHit();
             return;
         }
 
         if(otherTag == Constants.Tags.DEATH_TAG)
         {
             #region To prevent stucking ragdoll in obstacle colliders
-            Collider[] obstacleColliders = other.gameObject.GetComponentsInParent<Collider>();
-            foreach (Collider collider in obstacleColliders)
-            {
-                collider.enabled = false;
-            }
+            //Collider[] obstacleColliders = other.gameObject.GetComponentsInParent<Collider>();
+            //foreach (Collider collider in obstacleColliders)
+            //{
+            //    collider.enabled = false;
+            //}
             #endregion
 
-            death.Play();
-            OnDeath?.Invoke();
-            playerMovement.KillPlayer();
+            if (player.AreYouAlive())
+            {
+                death.Play();
+                OnDeath?.Invoke();
+                SoundManager.Instance.Play(hitSound, true);
+                player.KillPlayer(); 
+            }
         }        
     }
 }

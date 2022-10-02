@@ -8,6 +8,7 @@ TagManager:
   - Death
   - Sidehit
   - Trap
+  - Footstep
   layers:
   - Default
   - TransparentFX

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -8276979459907866317}
   - component: {fileID: 6700580493220355622}
   m_Layer: 8
-  m_Name: ObstacleBanner (1)
+  m_Name: ObstacleFence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,8 +90,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.236309, y: 3.8337874, z: 0.2220974}
-  m_Center: {x: 0.0069458485, y: 1.9030831, z: -0.00000023841858}
+  m_Size: {x: 2.236309, y: 3.8337874, z: 0.41767794}
+  m_Center: {x: 0.0069458485, y: 1.9030831, z: 0.09779003}
 --- !u!1 &5763928487800052721
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,7 +208,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64281548582175860, guid: 67e45b9aed9a8fb4e86029884b2c05a4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 67e45b9aed9a8fb4e86029884b2c05a4, type: 3}
 --- !u!4 &3993817998560982624 stripped
 Transform:
@@ -288,7 +289,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64872690118006054, guid: f5e310684d533124e895f9100f7931f4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f5e310684d533124e895f9100f7931f4, type: 3}
 --- !u!4 &3993817998707259656 stripped
 Transform:
@@ -368,7 +370,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64281548582175860, guid: 67e45b9aed9a8fb4e86029884b2c05a4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 67e45b9aed9a8fb4e86029884b2c05a4, type: 3}
 --- !u!4 &3993817999349306695 stripped
 Transform:

@@ -17,4 +17,9 @@ public class StringReference : ScriptableObject
     {
         return value;
     }
+
+    public void SetValue(string value)
+    {
+        this.value = value;
+    }
 }
